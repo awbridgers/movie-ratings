@@ -12,6 +12,7 @@ import {getMovie} from './util/getMovie';
 import ViewerHome from './components/viewerHome';
 import ViewerPage from './components/viewerPage';
 import Footer from './components/footer';
+import ScrollToTop from './components/scrollToTop';
 
 const App = () => {
   const movies = useContext(FirebaseContext);
@@ -44,9 +45,9 @@ const App = () => {
   return (
     <div>
       <Router>
-      <NavBar />
-      <div className="appBody">
-        
+        <ScrollToTop />
+        <NavBar />
+        <div className="appBody">
           <Route exact path="/">
             <Home />
           </Route>
@@ -57,7 +58,7 @@ const App = () => {
                 ratings={movie.ratings}
                 id={movie.id}
                 date={movie.date}
-                cage = {movie.cage}
+                cage={movie.cage}
               />
             </Route>
           ))}
@@ -69,8 +70,7 @@ const App = () => {
               <ViewerPage name={viewer.name} ratings={viewer.ratings} />
             </Route>
           ))}
-        
-      </div>
+        </div>
       </Router>
       <Footer />
     </div>

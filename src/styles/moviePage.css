@@ -71,7 +71,7 @@
 .tagline {
   font-size: 1.1rem;
   font-style: italic;
-  color: #8c8c8c;
+  color: #a7a7a7;
   text-align: center;
 }
 
@@ -94,6 +94,9 @@
   .moviePoster img {
     width: 100%;
   }
+  .overlay{
+    background: rgba(0, 0, 0, 0.75);
+  }
   .titleDiv {
     display: flex;
     flex-flow: column nowrap;
@@ -109,12 +112,12 @@
   }
   .movieTitleInfo {
     font-size: 0.75rem;
-    color: #8c8c8c;
+    color: #a8a8a8;
   }
   .tagline {
     font-size: 1rem;
     font-style: italic;
-    color: #8c8c8c;
+    color: #a8a8a8;
     text-align: center;
     width: 99%;
     display: flex;
