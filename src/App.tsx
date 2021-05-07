@@ -43,9 +43,10 @@ const App = () => {
   }, [movies]);
   return (
     <div>
+      <Router>
       <NavBar />
       <div className="appBody">
-        <Router>
+        
           <Route exact path="/">
             <Home />
           </Route>
@@ -68,8 +69,9 @@ const App = () => {
               <ViewerPage name={viewer.name} ratings={viewer.ratings} />
             </Route>
           ))}
-        </Router>
+        
       </div>
+      </Router>
       <Footer />
     </div>
   );
