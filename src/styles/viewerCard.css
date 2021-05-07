@@ -1,0 +1,59 @@
+.viewerCard{
+  flex-basis: 70%;
+  color:white;
+  margin: 5px;
+  min-width: 450px;
+}
+.viewerCard a{
+  color: white;
+}
+.viewerCard a:hover{
+  color: aqua;
+  text-decoration: none;
+  cursor: pointer;
+}
+.viewerCardHeader{
+  font-size: 1.8rem;
+}
+.viewerCardBody{
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+}
+.viewerCardTable{
+  width: 100%;
+  
+}
+.viewerCardTable td{
+  font-size: 1.05rem;
+}
+.viewerCardTable th{
+  font-size: 1.2rem;
+  text-align: left;
+  font-weight: normal;
+  
+}
+
+.avgRating{
+  display: flex;
+  flex-flow: row;
+  width:100%;
+}
+#ratingNumber{
+  align-self: flex-end;
+  margin-left:4px;
+}
+@media all and (max-width: 700px){
+  .viewerCard{
+    flex-basis:99%;
+    min-width: 300px;
+  }
+  .viewerCardTable td{
+    font-size: 14px;
+  }
+  .viewerCardTable th{
+    font-size: 1rem;
+    width:115px;
+  }
+
+}
