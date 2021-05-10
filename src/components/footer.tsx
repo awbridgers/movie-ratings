@@ -7,7 +7,7 @@ const Footer = () =>{
     <div className = 'footer'>
       <div>Movie images and info powered by:</div>
       <a href = 'https://www.themoviedb.org/'>
-      <img src = {tmdb} />
+      <img src = {tmdb} alt = "The Movie Database"/>
       </a>
     </div>
   )

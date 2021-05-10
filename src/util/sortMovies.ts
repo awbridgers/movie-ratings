@@ -33,7 +33,6 @@ export const sortMovies = (
     default:
       return b.date.getTime() - a.date.getTime();
   }
-  return -1;
 };
 // exact same thing but with Viewers
 export const sortViewers = (

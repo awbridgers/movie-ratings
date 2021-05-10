@@ -1,15 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {useHistory, useParams} from 'react-router-dom';
-import {IMovie, IMovieData, IRating} from '../types';
+import {IMovieData, IRating} from '../types';
 import {getMovie} from '../util/getMovie';
 import '../styles/moviePage.css';
 import {infoString} from '../util/infoString';
-import RatingCircle from './ratingCircle';
-import {averageRating} from '../util/averageRating';
-import {Table} from 'react-bootstrap';
-import {sortRatings} from '../util/sortRatings';
-import {getDate} from '../util/getDate';
-import StarRatings from 'react-star-ratings';
 import MovieDetails from './movieDetails';
 import {useMediaQuery} from 'react-responsive';
 import RatingTable from './ratingTable';
@@ -33,7 +26,7 @@ const Movie = ({title, id, date, ratings, cage}: Props) => {
       setMovieData(movie);
     };
     getMovieData();
-  }, []);
+  }, [id]);
   
 
   if (movieData) {
@@ -57,7 +50,7 @@ const Movie = ({title, id, date, ratings, cage}: Props) => {
         >
           <div className="overlay"></div>
           <div className="moviePoster">
-            <img src={movieData.poster_path} />
+            <img src={movieData.poster_path} alt = ''/>
           </div>
           <div className="movieInfo">
             <div className="titleDiv">

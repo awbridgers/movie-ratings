@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {IMovie, IMovieData} from '../types';
-import {Card, Button} from 'react-bootstrap';
+import {Card} from 'react-bootstrap';
 import {getMovie} from '../util/getMovie';
-import RatingCircle from './ratingCircle';
 import {averageRating} from '../util/averageRating';
 import {Link} from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
-import {ratingsArray} from '../util/ratingsArray';
-import {circleColor} from '../util/circleColor';
 import '../styles/movieCard.css'
 
 interface Props extends IMovie {}
@@ -20,13 +17,13 @@ const MovieCard = ({title, id, date, ratings}: Props) => {
       setMovieData(movie);
     };
     getMovieData();
-  }, []);
+  }, [id]);
   const averageScore = averageRating(ratings);
   return (
     <Card bg="dark" className="movieCard">
       <div className="imageWrapper">
         <div className="image">
-          <img className="cardImage" src={movieData?.poster_path} />
+          <img className="cardImage" src={movieData?.poster_path} alt = {`${title} Poster`} />
         </div>
       </div>
       <div className="bodyWrapper">

@@ -1,15 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import {useHistory, useParams} from 'react-router-dom';
-import {IMovie, IMovieData, IRating} from '../types';
-import {getMovie} from '../util/getMovie';
+import React from 'react'
+import {IRating} from '../types';
 import '../styles/moviePage.css';
-import {infoString} from '../util/infoString';
 import RatingCircle from './ratingCircle';
 import {averageRating} from '../util/averageRating';
-import {Table} from 'react-bootstrap';
-import {sortRatings} from '../util/sortRatings';
 import {getDate} from '../util/getDate';
-import {useMediaQuery} from 'react-responsive';
 import {ImCross, ImCheckmark} from 'react-icons/im';
 import '../styles/movieDetails.css'
 

@@ -1,10 +1,9 @@
-import React from 'react';
-import {IRating, IViewer} from '../types';
+import React from 'react'
+import {IRating} from '../types';
 import '../styles/App.css';
 import {Card} from 'react-bootstrap';
 import '../styles/viewerCard.css';
 import {averageRating} from '../util/averageRating';
-import {getTrailingCommentRanges} from 'typescript';
 import {useMediaQuery} from 'react-responsive';
 import StarRatings from 'react-star-ratings';
 import {Link } from 'react-router-dom'

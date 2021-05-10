@@ -1,17 +1,21 @@
 .movieCard{
   color:white;
-  width:28%;
-  max-width: 200px;
-  margin: 5px;
+  width:200px;
+  height:435px;
+  margin: 5px 10px;
+}
+.card{
+  border: 2px solid rgba(0,0,0,.125)!important;
 }
 .cardImage{
   object-fit: contain;
   max-width: 100%;
   max-height:100%;
-  margin: auto;
+
 }
 .imageWrapper{
-  padding-top: 140%;
+  /* padding-top: 150%; */
+  height: 67.6%;
   position: relative;
 
 }
@@ -26,7 +30,7 @@
 }
 .bodyWrapper{
   position: relative;
-  padding-top: 80%;
+  height: 31.5%;
 }
 .body{
   position: absolute;
@@ -41,12 +45,14 @@
 }
 .title{
   flex-grow:1;
-  flex-basis: 50%;
+  flex-basis: 80%;
+  text-align: center;
+  overflow: hidden;
 }
 .averageRating{
   display: flex;
   justify-content: center;
-  flex-grow: 1;
+  flex-basis: 20%;
 
 }
 .CircularProgressbar-text {
@@ -57,20 +63,24 @@
 }
 @media all and (max-width: 700px){
   .card{
-    max-width:none;
+    min-width:250px;
     width:100%;
+    max-width: unset;
+    height: unset;
   }
   .CircularProgressbar-text{
     font-size: 8vw !important;
   }
   .bodyWrapper{
     position: relative;
-    padding-top: 50%;
+    padding-top: 45%;
+    height: unset;
   }
   .title{
     flex-basis: auto;
   }
   .imageWrapper{
-    padding-top:120%;
+    padding-top:130%;
+    height: unset;
   }
 }

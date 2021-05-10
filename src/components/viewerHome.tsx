@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {IViewer} from '../types';
 import ViewerCard from './viewerCard';
 import Select, {OptionTypeBase} from 'react-select';
-import { sortMovies, sortViewers } from '../util/sortMovies';
+import { sortViewers } from '../util/sortMovies';
 
 interface IProps {
   viewerData: IViewer[];
@@ -30,7 +30,7 @@ const ViewerHome = ({viewerData}: IProps) => {
       </div>
       <div className="viewerHome">
         {viewerData.sort((a,b)=>sortViewers(a,b,sortType)).map((viewer, i) => (
-          <ViewerCard key={i} ratings={viewer.ratings} name={viewer.name} />
+          <ViewerCard key={viewer.name} ratings={viewer.ratings} name={viewer.name} />
         ))}
       </div>
     </div>

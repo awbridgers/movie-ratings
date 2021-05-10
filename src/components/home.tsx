@@ -1,7 +1,5 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {FirebaseContext} from '../firebase/provider';
-import {IRating, IViewer} from '../types';
-import {ratingsArray} from '../util/ratingsArray';
 import MovieCard from './movieCard';
 import Select, {OptionTypeBase} from 'react-select';
 import {sortMovies} from '../util/sortMovies';

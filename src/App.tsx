@@ -1,14 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {FirebaseContext} from './firebase/provider';
-import {HashRouter as Router, Route, Switch} from 'react-router-dom';
+import {HashRouter as Router, Route} from 'react-router-dom';
 import Movie from './components/movie';
-import Viewer from './components/viewerCard';
 import NavBar from './components/navBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {ratingsArray} from './util/ratingsArray';
 import Home from './components/home';
-import {IMovie, IRating, IViewer} from './types';
-import {getMovie} from './util/getMovie';
+import {IViewer} from './types';
 import ViewerHome from './components/viewerHome';
 import ViewerPage from './components/viewerPage';
 import Footer from './components/footer';
@@ -65,8 +62,8 @@ const App = () => {
           <Route exact path="/viewers">
             <ViewerHome viewerData={viewerData} />
           </Route>
-          {viewerData.map((viewer) => (
-            <Route path={`/viewers/${viewer.name}`}>
+          {viewerData.map((viewer,i) => (
+            <Route key = {i} path={`/viewers/${viewer.name}`}>
               <ViewerPage name={viewer.name} ratings={viewer.ratings} />
             </Route>
           ))}
