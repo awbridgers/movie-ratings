@@ -11,7 +11,7 @@ const options = [
   {value: 'rateA', label: 'Rating (Ascending)'},
   {value: 'rateD', label: 'Rating (Descending)'},
   {value: 'titleA', label: 'Title (Ascending)'},
-  {value: 'titleD', label: 'Title(Descending)'},
+  {value: 'titleD', label: 'Title (Descending)'},
 ];
 
 const Home = () => {
@@ -21,18 +21,20 @@ const Home = () => {
     sortMovies(a, b, sortType)
   );
   return (
-    <div className="homePage">
+    <div className="homePage" data-testid = 'homePage'>
       <div className="sort">
         <div className = 'cageFilter'>
           <div className = 'filterTitle'>Cage Filter</div>
           <Switch onColor = '#03AC13' uncheckedIcon = {false} checked = {cageFilter} onChange = {(checked)=>setCageFilter(checked)}/>
           </div>
+          <label style = {{display:'none'}} htmlFor = 'sort'>Sort</label>
         <Select
           isSearchable={false}
           className="select"
           options={options}
           value={sortType}
           onChange={setSortType}
+          inputId = 'sort'
         />
       </div>
       <div className="home">

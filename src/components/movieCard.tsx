@@ -20,7 +20,7 @@ const MovieCard = ({title, id, date, ratings}: Props) => {
   }, [id]);
   const averageScore = averageRating(ratings);
   return (
-    <Card bg="dark" className="movieCard">
+    <Card bg="dark" className="movieCard" data-testid = 'movieCard'>
       <div className="imageWrapper">
         <div className="image">
           <img className="cardImage" src={movieData?.poster_path} alt = {`${title} Poster`} />
@@ -30,7 +30,7 @@ const MovieCard = ({title, id, date, ratings}: Props) => {
         <div className="body">
           <div className="title">
             <Link to={`/movies/${title.replace(/ /g, '-')}`}>
-              <Card.Title>{movieData?.title}</Card.Title>
+              <Card.Title data-testid = {title}>{movieData?.title}</Card.Title>
             </Link>
           </div>
           <div className="averageRating">
