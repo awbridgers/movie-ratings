@@ -46,13 +46,13 @@ const Movie = ({title, id, date, ratings, cage}: Props) => {
       <div className="moviePage">
         <div
           className="info"
-          style={{backgroundImage: `url(${movieData.backdgrop_path})`}}
+          style={{backgroundImage: `url(${movieData.backdrop_path})`}}
         >
           <div className="overlay"></div>
           <div className="moviePoster">
             <img src={movieData.poster_path} alt = ''/>
           </div>
-          <div className="movieInfo">
+          <div className="movieInfo" data-testid = 'movieDetails'>
             <div className="titleDiv">
               <div className="movieTitle">{`${title} (${movieData.release_date.getFullYear()})`}
               <div className="movieTitleInfo">
@@ -76,7 +76,7 @@ const Movie = ({title, id, date, ratings, cage}: Props) => {
     );
   }
   return (
-    <div className="moviePage">
+    <div className="moviePage" data-testid = 'loadingMoviePage'>
       <div className="info"></div>
     </div>
   );

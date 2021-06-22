@@ -20,7 +20,7 @@ export interface IMovieData {
   imdb_id: string,
   overview: string,
   poster_path: string,
-  backdgrop_path: string,
+  backdrop_path: string,
   revenue: number,
   release_date: Date,
   runtime: number,

@@ -26,7 +26,7 @@ export const getMovie = async (id: string) : Promise<IMovieData> => {
     imdb_id,
     overview,
     poster_path: `https://image.tmdb.org/t/p/w500${poster_path}`,
-    backdgrop_path:`https://image.tmdb.org/t/p/w1280${backdrop_path}`,
+    backdrop_path:`https://image.tmdb.org/t/p/w1280${backdrop_path}`,
     revenue,
     runtime,
     title,
