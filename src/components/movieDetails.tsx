@@ -49,9 +49,9 @@ const MovieDetails = ({
           <div className="heading">Nic Cage</div>
           <div className=" = detailBody">
             {cage ? (
-              <ImCheckmark size={20} color="#03AC13" />
+              <ImCheckmark size={20} color="#03AC13" data-testid = 'check'/>
             ) : (
-              <ImCross size={20} color="#FF0800" />
+              <ImCross size={20} color="#FF0800" data-testid = 'x'/>
             )}
           </div>
         </div>
