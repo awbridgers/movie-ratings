@@ -35,7 +35,7 @@ const RatingTable = ({ratings, isMobile, title}:IProps) => {
           .sort((a, b) => sortRatings(a, b, sortType, sortBest))
           .map((rating, i) => (
             <tr key={i}>
-              <td>{rating.name}</td>
+              <td data-testid = 'ratingName'>{rating.name}</td>
               <td>
                 <StarRatings
                   rating={rating.score / 2}
@@ -43,6 +43,7 @@ const RatingTable = ({ratings, isMobile, title}:IProps) => {
                   starEmptyColor="rgb(30,30,30)"
                   starDimension={!isMobile ? '35px' : '30px'}
                   starSpacing={!isMobile ? '2px' : '0px'}
+                  name = 'starRating'
                 />
                 {` ${rating.score.toFixed(1)}/10`}
               </td>
