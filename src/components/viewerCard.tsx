@@ -41,13 +41,13 @@ const ViewerCard = ({ratings, name}: IProps) => {
               </td>
             </tr>
 
-            <tr>
+            <tr data-testid = 'highest'>
               <th>Highest Rated:</th>
               <td>
                 {highestRated.name} ({highestRated.score}/10)
               </td>
             </tr>
-            <tr>
+            <tr data-testid = 'lowest'>
               <th>Lowest Rated:</th>
               <td>
                 {lowestRated.name} ({lowestRated.score}/10)
