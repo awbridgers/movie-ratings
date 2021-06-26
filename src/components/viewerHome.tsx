@@ -15,17 +15,19 @@ const options = [
 ];
 
 const ViewerHome = ({viewerData}: IProps) => {
-  const [sortType, setSortType] = useState<OptionTypeBase>(options[2]);
+  const [sortType, setSortType] = useState<OptionTypeBase>(options[3]);
 
   return (
     <div className="viewerHomePage">
       <div className="viewerSort">
+      <label style = {{display:'none'}} htmlFor = 'sort'>Sort</label>
         <Select
           isSearchable={false}
           className="select"
           options={options}
           value={sortType}
           onChange={setSortType}
+          inputId = 'sort'
         />
       </div>
       <div className="viewerHome">

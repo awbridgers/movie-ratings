@@ -17,7 +17,7 @@ const ViewerCard = ({ratings, name}: IProps) => {
   const highestRated = ratings.sort((a, b) => b.score - a.score)[0];
   const lowestRated = ratings.sort((a, b) => a.score - b.score)[0];
   return (
-    <Card bg="dark" className="viewerCard">
+    <Card bg="dark" className="viewerCard" data-testid = 'viewerCard'>
       <Card.Header className="viewerCardHeader"><Link to={`/viewers/${name}`}>{name}</Link></Card.Header>
       <Card.Body className="viewerCardBody">
         <table className="viewerCardTable">
