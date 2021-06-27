@@ -42,13 +42,13 @@ describe('FirebaseProvider', () => {
   beforeEach(()=>{
     mockOnce.mockReturnValue(mockData)
   })
-  it('shows the default value of empty array', () => {
+  it('shows the default value of empty array', async() => {
     render(
       <FirebaseProvider>
         <Consumer />
       </FirebaseProvider>
     );
-    expect(screen.getByText('Empty')).toBeTruthy();
+    expect(await screen.findByText('Empty')).toBeTruthy();
   });
   it('loads the movie data into the context', async () => {
     render(
@@ -56,14 +56,15 @@ describe('FirebaseProvider', () => {
         <App />
       </FirebaseProvider>
     );
-    await waitFor(()=>expect(screen.getByTestId('Test Movie')).toBeTruthy())
+    const test = await screen.findByTestId('Test Movie')
+    expect(test).toBeTruthy();
   });
   it('throws an error if there is an error',async()=>{
     mockOnce.mockReturnValue('test')
     const log = jest.spyOn(console, 'log');
     render(
       <FirebaseProvider>
-        <App />
+        <div></div>
       </FirebaseProvider>
     );
     await waitFor(()=>expect(log).toHaveBeenNthCalledWith(1,'movies.forEach is not a function'))
