@@ -62,5 +62,15 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "react-select-event": "^5.3.0"
+  },
+  "jest":{
+    "collectCoverageFrom": [
+      "!**/src/firebase/config.ts",
+      "!**/src/typings/**",
+      "!**/src/react-app-env.d.ts",
+      "!**/src/reportWebVitals.ts",
+      "!**/src/types.ts",
+      "!**/src/images/**"
+    ]
   }
 }

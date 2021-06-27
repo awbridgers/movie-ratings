@@ -15,6 +15,7 @@ const FirebaseProvider = ({children}: IProvider) => {
   useEffect(() => {
     const getData = async () => {
       let tempMovieArray: IMovie[] = [];
+      try{
       const movies = await db.ref('movies').once('value');
       movies.forEach((snapshot) => {
         tempMovieArray.push({
@@ -26,6 +27,9 @@ const FirebaseProvider = ({children}: IProvider) => {
         });
       });
       setMovieArray(tempMovieArray);
+    }catch(e){
+      console.log(e.message)
+    }
     };
     getData();
   }, []);
