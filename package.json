@@ -71,7 +71,7 @@
       "!**/src/reportWebVitals.ts",
       "!**/src/types.ts",
       "!**/src/images/**",
-      "!**/src/index.ts"
+      "!**/src/index.tsx"
     ]
   }
 }
