@@ -68,9 +68,9 @@
     max-width: unset;
     height: unset;
   }
-  .CircularProgressbar-text{
-    font-size: 8vw !important;
-  }
+  /* .CircularProgressbar-text{
+    font-size: calc(8vw - 5px) !important;
+  } */
   .bodyWrapper{
     position: relative;
     padding-top: 45%;

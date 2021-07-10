@@ -1,4 +1,4 @@
-import db from './config';
+import {db} from './config';
 import {createContext, useEffect, useState} from 'react';
 import React from 'react';
 import {ratingsArray} from '../util/ratingsArray';

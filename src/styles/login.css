@@ -1,0 +1,66 @@
+.logIn{
+  position: absolute;
+  top:0px;
+  bottom:0px;
+  left:0px;
+  right:0px;
+  background-color: rgba(26, 26, 26,0.9);
+  z-index: 100;
+}
+.logInBox{
+  width:50%;
+  position: fixed;
+  background-color: rgb(133, 133, 133);
+  padding: 10px;
+  left:0px;
+  right:0px;
+  margin: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 8px;
+  max-width: 450px;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.logOutBox{
+  width:50%;
+  min-width: 300px;
+  position: fixed;
+  padding: 10px;
+  left:0px;
+  right:0px;
+  margin: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 8px;
+  max-width: 450px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+.logInTitle{
+  margin:auto;
+  text-align: center;
+}
+
+.logInButtons{
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+#submitButton, #backButton{
+  margin: 0px 10px;
+}
+.logInErrors{
+  margin: auto;
+  font-size: 14px;
+}
+
+@media all and (max-width: 700px){
+  /* .logInBox{
+    width:95%;
+    height:100%;
+    background-color: rgb(216, 216, 216);
+    padding: 10px;
+  } */
+}
