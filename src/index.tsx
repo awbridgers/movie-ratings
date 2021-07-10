@@ -5,15 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'firebase/database';
 import './styles/App.css';
-import FirebaseContext from './firebase/provider'
-
-
-
+import FirebaseContext from './firebase/provider';
+import AuthProvider from './firebase/authProvider';
 
 ReactDOM.render(
   <React.StrictMode>
     <FirebaseContext>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </FirebaseContext>
   </React.StrictMode>,
   document.getElementById('root')

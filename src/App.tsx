@@ -10,10 +10,24 @@ import ViewerHome from './components/viewerHome';
 import ViewerPage from './components/viewerPage';
 import Footer from './components/footer';
 import ScrollToTop from './components/scrollToTop';
+import LogIn from './components/logIn';
+import {auth} from './firebase/config';
 
 const App = () => {
   const movies = useContext(FirebaseContext);
+  const [login, setLogin] = useState<boolean>(false);
+  const [logOut, setLogOut] = useState<boolean>(false);
   const [viewerData, setViewerData] = useState<IViewer[]>([]);
+  const signOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        setLogOut(true);
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  };
   useEffect(() => {
     const getViewerData = () => {
       let viewerArray: IViewer[] = [];
@@ -40,10 +54,12 @@ const App = () => {
     getViewerData();
   }, [movies]);
   return (
-    <div>
+    <div style={{position: 'relative'}}>
+      {login && <LogIn type="in" back={() => setLogin(false)} />}
+      {logOut && <LogIn type="out" back={() => setLogOut(false)} />}
       <Router>
         <ScrollToTop />
-        <NavBar />
+        <NavBar signOut={signOut} signIn={() => setLogin(true)} />
         <div className="appBody">
           <Route exact path="/">
             <Home />
@@ -62,8 +78,8 @@ const App = () => {
           <Route exact path="/viewers">
             <ViewerHome viewerData={viewerData} />
           </Route>
-          {viewerData.map((viewer,i) => (
-            <Route key = {i} path={`/viewers/${viewer.name}`}>
+          {viewerData.map((viewer, i) => (
+            <Route key={i} path={`/viewers/${viewer.name}`}>
               <ViewerPage name={viewer.name} ratings={viewer.ratings} />
             </Route>
           ))}

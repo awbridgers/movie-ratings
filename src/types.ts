@@ -29,3 +29,6 @@ export interface IMovieData {
   vote_count: number,
   tagline: string
 }
+declare global {
+  interface Window { recaptchaVerifier: any; }
+}
