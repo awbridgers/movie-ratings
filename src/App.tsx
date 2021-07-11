@@ -14,6 +14,8 @@ import LogIn from './components/logIn';
 import {auth} from './firebase/config';
 import SignUp from './components/SignUp';
 
+import ProtectedRoute from './components/protectedRoute';
+import Profile from './components/profile';
 const App = () => {
   const movies = useContext(FirebaseContext).movie;
   const viewers = useContext(FirebaseContext).viewer;
@@ -44,6 +46,9 @@ const App = () => {
           <Route path = '/join'>
             <SignUp/>
           </Route>
+          <ProtectedRoute path = '/profile'>
+              <Profile/>
+            </ProtectedRoute>
           {movies.map((movie, i) => (
             <Route path={`/movies/${movie.title.replace(/ /g, '-')}`} key={i}>
               <Movie

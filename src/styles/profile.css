@@ -1,0 +1,20 @@
+.profile{
+  color: white
+}
+.settings{
+  width: 80%;
+  margin: auto;
+}
+.settingsTitle{
+  text-align: center;
+  font-size: 24px;
+}
+.infoTable{
+  background: blue;
+  width:50%;
+  margin: auto;
+}
+.infoTable td{
+  padding:10px;
+}
+
