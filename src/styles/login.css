@@ -51,10 +51,33 @@
 #submitButton, #backButton{
   margin: 0px 10px;
 }
+#joinButton{
+  width:50%;
+}
 .logInErrors{
   margin: auto;
   font-size: 14px;
 }
+.signUp{
+  color: white;
+}
+.signUpTitle{
+  font-size: 20px;
+  text-align: center;
+}
+.signUpForm{
+  width: 80%;
+  max-width: 500px;
+  margin: auto;
+}
+ a{
+  color:rgb(238, 255, 0);
+}
+ a:hover{
+  text-decoration: none ;
+  color:aqua ;
+}
+
 
 @media all and (max-width: 700px){
   /* .logInBox{

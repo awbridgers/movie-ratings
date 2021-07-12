@@ -12,6 +12,7 @@ import Footer from './components/footer';
 import ScrollToTop from './components/scrollToTop';
 import LogIn from './components/logIn';
 import {auth} from './firebase/config';
+import SignUp from './components/SignUp';
 
 const App = () => {
   const movies = useContext(FirebaseContext);
@@ -55,14 +56,17 @@ const App = () => {
   }, [movies]);
   return (
     <div style={{position: 'relative'}}>
+      <Router>
       {login && <LogIn type="in" back={() => setLogin(false)} />}
       {logOut && <LogIn type="out" back={() => setLogOut(false)} />}
-      <Router>
         <ScrollToTop />
         <NavBar signOut={signOut} signIn={() => setLogin(true)} />
         <div className="appBody">
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route path = '/join'>
+            <SignUp/>
           </Route>
           {movies.map((movie, i) => (
             <Route path={`/movies/${movie.title.replace(/ /g, '-')}`} key={i}>
