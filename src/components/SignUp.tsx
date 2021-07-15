@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import {Form, Button, FormControl, Alert} from 'react-bootstrap';
 import '../styles/login.css';
-import {auth} from '../firebase/config';
+import {auth, db} from '../firebase/config';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../firebase/authProvider';
 
@@ -65,13 +65,19 @@ const SignUp = () => {
         //if the user is alraedy signed in, don't let them make a new account
         setAlreadySignedIn(true)
       }else{
+      //if there are no errors:
+      //1. create the user
+      //2. add user info to said user
+      //3. add user to the database
       auth
         .createUserWithEmailAndPassword(email, password)
-        .then((user) => {
-          user.user
+        .then((newUser) => {
+          newUser.user
             ?.updateProfile({displayName: displayName})
             .catch((e) => console.log(e.message));
+            db.ref('/users').child(`${newUser.user?.uid}`).set({displayName})
             setAccountCreated(true);
+
         })
         .catch((e) => {
           if (e.message.toLowerCase().includes('email')) {
