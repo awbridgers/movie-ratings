@@ -1,20 +1,32 @@
 .profile{
-  color: white
+  color: white;
 }
 .settings{
   width: 80%;
   margin: auto;
+  min-width: 485px;
 }
 .settingsTitle{
   text-align: center;
   font-size: 24px;
+  margin-bottom: 10px;
 }
 .infoTable{
-  background: blue;
-  width:50%;
+  width:70%;
   margin: auto;
+  text-align: center;
 }
 .infoTable td{
   padding:10px;
+  font-size: 20px;
 }
-
+.change{
+  color: blue;
+}
+.change:hover{
+  color: aqua;
+  cursor: pointer;
+}
+.plainText{
+  color:rgb(255, 255, 255);
+}
