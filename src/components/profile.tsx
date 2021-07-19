@@ -42,6 +42,12 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      <div className = 'settings'>
+        <div className = 'settingsTitle'>My Ratings</div>
+        <div className = 'setttingsBody'>
+          
+        </div>
+      </div>
     </div>
   );
 };

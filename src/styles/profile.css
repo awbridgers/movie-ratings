@@ -3,8 +3,9 @@
 }
 .settings{
   width: 80%;
-  margin: auto;
+  margin: 10px auto;
   min-width: 485px;
+  background-color: #343a40;
 }
 .settingsTitle{
   text-align: center;
@@ -21,10 +22,10 @@
   font-size: 20px;
 }
 .change{
-  color: blue;
+  color: aqua;
 }
 .change:hover{
-  color: aqua;
+  color: yellow;
   cursor: pointer;
 }
 .plainText{
