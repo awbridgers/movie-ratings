@@ -14,6 +14,7 @@
   position: relative;
   z-index: 1;
   background-repeat: no-repeat;
+  padding-bottom:10px;
 }
 .overlay {
   position: absolute;
@@ -74,7 +75,14 @@
   color: #a7a7a7;
   text-align: center;
 }
-
+.changeRating{
+  color: rgb(60, 104, 247);
+  display: inline
+}
+.changeRating:hover{
+  color:aqua;
+  cursor: pointer;
+}
 
 
 

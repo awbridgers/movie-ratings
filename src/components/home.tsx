@@ -17,7 +17,7 @@ const options = [
 const Home = () => {
   const [sortType, setSortType] = useState<OptionTypeBase>(options[1]);
   const [cageFilter, setCageFilter] = useState<boolean>(false)
-  const movies = useContext(FirebaseContext).slice().sort((a, b) =>
+  const movies = useContext(FirebaseContext).movie.slice().sort((a, b) =>
     sortMovies(a, b, sortType)
   );
   return (
