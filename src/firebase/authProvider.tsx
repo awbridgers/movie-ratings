@@ -11,7 +11,6 @@ export const AuthContext = createContext<firebase.User | null>(null);
 
 const AuthProvider = ({children}: IProvider) =>{
   const [user, setUser] = useState<firebase.User | null>(null)
-  console.log(user)
   useEffect(()=>{
     return auth.onAuthStateChanged((user)=>setUser(user))
   },[])

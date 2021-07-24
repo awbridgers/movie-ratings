@@ -1,8 +1,7 @@
 import React, {useContext, useState} from 'react';
-import {Form, Button, FormControl, Alert, Row, Col} from 'react-bootstrap';
+import {Form, Button, Alert, Row, Col} from 'react-bootstrap';
 import '../styles/login.css';
 import '../styles/profile.css';
-import {auth} from '../firebase/config';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import {AuthContext} from '../firebase/authProvider';

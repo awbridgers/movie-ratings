@@ -1,11 +1,22 @@
 import React, {useContext, useState} from 'react';
+import { useMediaQuery } from 'react-responsive';
+import StarRatings from 'react-star-ratings';
 import {AuthContext} from '../firebase/authProvider';
+import { FirebaseContext } from '../firebase/provider';
 import '../styles/profile.css';
+import { averageRating } from '../util/averageRating';
 import ChangeProfileInfo from './changeProfileInfo';
+import RatingTable from './ratingTable';
+import '../styles/viewerCard.css'
 
 const Profile = () => {
   const [showChange, setShowChange] = useState<'Password'|'Name'|'Email' | null>(null);
   const user = useContext(AuthContext)!;
+  const isMobile = useMediaQuery({maxWidth: 700})
+  const userMovies = useContext(FirebaseContext).userMovie;
+  const highestRated = userMovies.reduce((accumulator, current)=>accumulator.score > current.score ? accumulator : current);
+  const lowestRated = userMovies.reduce((accumulator, current)=>accumulator.score < current.score ? accumulator : current);
+
   return (
     <div className="profile">
       {showChange && (
@@ -45,7 +56,8 @@ const Profile = () => {
       <div className = 'settings'>
         <div className = 'settingsTitle'>My Ratings</div>
         <div className = 'setttingsBody'>
-          
+       
+          <RatingTable movie ratings={userMovies} isMobile = {isMobile} title = ''/>
         </div>
       </div>
     </div>

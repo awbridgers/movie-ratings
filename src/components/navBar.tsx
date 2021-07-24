@@ -36,7 +36,7 @@ const NavBar = ({signIn, signOut}: props) => {
         </Nav>
         <Nav className="justify-content-right">
           {user ? (
-            <NavDropdown alignRight title = 'Profile' id = 'dropdown'>
+            <NavDropdown alignRight title = {user.displayName} id = 'dropdown'>
               <NavDropdown.Item as={Link} to = '/profile'>Profile</NavDropdown.Item>
               <NavDropdown.Item onClick= {signOut}>Sign Out</NavDropdown.Item>
             </NavDropdown>

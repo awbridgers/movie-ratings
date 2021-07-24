@@ -1,11 +1,10 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {FirebaseContext} from './firebase/provider';
 import {HashRouter as Router, Route} from 'react-router-dom';
 import Movie from './components/movie';
 import NavBar from './components/navBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './components/home';
-import {IViewer} from './types';
 import ViewerHome from './components/viewerHome';
 import ViewerPage from './components/viewerPage';
 import Footer from './components/footer';

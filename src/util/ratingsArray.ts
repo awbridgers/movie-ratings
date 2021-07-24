@@ -1,7 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
 import {IRating} from '../types';
-import {db} from '../firebase/config';
 
 export const ratingsArray = (
   ratings: firebase.database.DataSnapshot,
@@ -12,6 +11,7 @@ export const ratingsArray = (
     ratingsArray.push({
       name: movie ? snapshot.val().displayName : snapshot.key!,
       score: movie ? snapshot.val().score : snapshot.val(),
+      id: movie ? snapshot.key! : snapshot.key!.replace(/ /g, '-')
     });
   });
   return ratingsArray;
