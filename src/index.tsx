@@ -10,11 +10,11 @@ import AuthProvider from './firebase/authProvider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <FirebaseContext>
-      <AuthProvider>
+    <AuthProvider>
+      <FirebaseContext>
         <App />
-      </AuthProvider>
-    </FirebaseContext>
+      </FirebaseContext>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

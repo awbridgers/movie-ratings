@@ -3,8 +3,9 @@ export interface IRating {
   score: number
 }
 export interface IViewer {
-  name: string,
+  name: string;
   ratings : IRating[];
+  id: string;
 }
 export interface IMovie {
   title: string,
