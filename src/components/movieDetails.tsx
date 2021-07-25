@@ -19,6 +19,7 @@ interface Props {
   revenue: number;
   cage: boolean;
   addRating: () => void;
+  deleteRating:()=>void;
   userRating: IRating | undefined;
 }
 
@@ -33,6 +34,7 @@ const MovieDetails = ({
   cage,
   addRating,
   userRating,
+  deleteRating
 }: Props) => {
   const user = useContext(AuthContext);
   return (
@@ -90,6 +92,8 @@ const MovieDetails = ({
                 >
                   Change
                 </div>
+                <div style = {{display: 'inline'}} className = 'detailBody'> | </div>
+                <div className = 'changeRating' onClick = {deleteRating}>Delete</div>
               </div>
             ) : (
               <Button size="sm" variant="secondary" onClick={addRating}>

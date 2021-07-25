@@ -21,6 +21,7 @@ interface Props {
 const Movie = ({title, id, date, ratings, cage}: Props) => {
   const [movieData, setMovieData] = useState<IMovieData>();
   const [addRating, setAddRating] = useState<boolean>(false);
+  const [deleteRating, setDeleteRating] = useState<boolean>(false)
   const isMobile = useMediaQuery({maxWidth: 700});
   const userMovie = useContext(FirebaseContext).userMovie;
   const userScore = userMovie.find(x=>x.name===title);
@@ -44,6 +45,7 @@ const Movie = ({title, id, date, ratings, cage}: Props) => {
         revenue={movieData.revenue}
         cage={cage}
         addRating={() => setAddRating(true)}
+        deleteRating={()=>{setDeleteRating(true); setAddRating(true)}}
         userRating={userScore}
       />
     );
@@ -51,11 +53,13 @@ const Movie = ({title, id, date, ratings, cage}: Props) => {
       <div className="moviePage">
         {addRating && (
           <AddRating
-            back={() => setAddRating(false)}
+            back={() => {setAddRating(false); setDeleteRating(false)}}
             title={title}
             userScore= {userScore}
+            deleteRating = {deleteRating}
           />
         )}
+        
         <div
           className="info"
           style={{backgroundImage: `url(${movieData.backdrop_path})`}}
