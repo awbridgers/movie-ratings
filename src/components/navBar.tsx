@@ -3,6 +3,7 @@ import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
 import {useLocation} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import {AuthContext} from '../firebase/authProvider';
+import { FirebaseContext } from '../firebase/provider';
 
 interface props {
   signIn: () => void;
@@ -13,6 +14,7 @@ const NavBar = ({signIn, signOut}: props) => {
   const [expanded, setExpanded] = useState<boolean>(false);
   const {pathname} = useLocation();
   const user = useContext(AuthContext);
+  const displayName = useContext(FirebaseContext).displayName;
   useEffect(() => {
     setExpanded(false);
   }, [pathname]);
@@ -35,9 +37,9 @@ const NavBar = ({signIn, signOut}: props) => {
           </Nav.Link>
         </Nav>
         <Nav className="justify-content-right">
-          {user ? (
-            <NavDropdown alignRight title = 'Profile' id = 'dropdown'>
-              <NavDropdown.Item as={Link} to = '/viewers'>Profile</NavDropdown.Item>
+          {user && displayName ? (
+            <NavDropdown alignRight title = {displayName} id = 'dropdown'>
+              <NavDropdown.Item as={Link} to = '/profile'>Profile</NavDropdown.Item>
               <NavDropdown.Item onClick= {signOut}>Sign Out</NavDropdown.Item>
             </NavDropdown>
           ) : (

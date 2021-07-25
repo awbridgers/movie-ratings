@@ -12,7 +12,7 @@ const ViewerPage = ({ratings, name}: IProps) => {
   const isMobile = useMediaQuery({maxWidth:700})
   return (
     <div>
-      <RatingTable title = {`${name}'s Ratings`} ratings={ratings} isMobile={isMobile} />
+      <RatingTable movie title = {`${name}'s Ratings`} ratings={ratings} isMobile={isMobile} />
     </div>
   );
 };

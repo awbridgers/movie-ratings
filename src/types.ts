@@ -1,6 +1,8 @@
 export interface IRating {
-  name: string,
-  score: number
+  name: string;
+  score: number;
+  id: string;
+
 }
 export interface IViewer {
   name: string;

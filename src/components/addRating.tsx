@@ -4,6 +4,7 @@ import {db} from '../firebase/config';
 import {AuthContext} from '../firebase/authProvider';
 import '../styles/login.css';
 import {IRating} from '../types';
+import { FirebaseContext } from '../firebase/provider';
 
 interface Props {
   title: string;
@@ -16,6 +17,7 @@ const AddRating = ({title, back, userScore}: Props) => {
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<boolean>(false);
   const user = useContext(AuthContext)!;
+  const displayName = useContext(FirebaseContext).displayName!; //user must exist to access this page
   const uid = user.uid;
   const type = userScore ? 'Edit' : 'Add';
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -27,7 +29,7 @@ const AddRating = ({title, back, userScore}: Props) => {
       //add the rating to both the movie and the user
       let updates: {[key: string]: any} = {};
       updates[`/movies/${title}/ratings/${uid}`] = {
-        displayName: user.displayName,
+        displayName: displayName,
         score: Math.round(ratingNumber * 10) / 10,
       };
       updates[`/users/${uid}/ratings/${title}`] =

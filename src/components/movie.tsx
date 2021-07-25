@@ -84,7 +84,7 @@ const Movie = ({title, id, date, ratings, cage}: Props) => {
           </div>
         </div>
         {isMobile && details}
-        <RatingTable title="Ratings" ratings={ratings} isMobile={isMobile} />
+        <RatingTable movie = {false} title="Ratings" ratings={ratings} isMobile={isMobile} />
       </div>
     );
   }

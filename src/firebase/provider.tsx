@@ -13,18 +13,27 @@ export const FirebaseContext = createContext<{
   movie: IMovie[];
   viewer: IViewer[];
   userMovie: IRating[];
-}>({movie: [], viewer: [], userMovie: []});
+  displayName: string | null;
+}>({movie: [], viewer: [], userMovie: [], displayName: null});
 
 const FirebaseProvider = ({children}: IProvider) => {
   const [movieArray, setMovieArray] = useState<IMovie[]>([]);
   const [viewerArray, setViewerArray] = useState<IViewer[]>([]);
   const [userArray, setUserArray] = useState<IRating[]>([]);
+  const [displayName, setDisplayName] = useState<string>('');
   const user = useContext(AuthContext);
   useEffect(() => {
     //if a user is logged in, watch for changes to their db
     if (user) {
-      db.ref(`users/${user.uid}/ratings`).on('value', (snapshot) => {
-        setUserArray(ratingsArray(snapshot, false));
+      db.ref(`users/${user.uid}`).on('value', (snapshot) => {
+        if(!snapshot.val()){
+          setUserArray([]);
+          setDisplayName('');
+        }
+        else{
+        setUserArray(ratingsArray(snapshot.child('/ratings'), false));
+        setDisplayName(snapshot.val().displayName);
+        }
       });
 
       return () => db.ref(`users/${user.uid}`).off();
@@ -70,9 +79,16 @@ const FirebaseProvider = ({children}: IProvider) => {
     };
     getMovieData();
     getViewerData();
-  }, [userArray]);
+  }, [userArray, displayName]);
   return (
-    <FirebaseContext.Provider value={{movie: movieArray, viewer: viewerArray, userMovie: userArray}}>
+    <FirebaseContext.Provider
+      value={{
+        movie: movieArray,
+        viewer: viewerArray,
+        userMovie: userArray,
+        displayName: displayName,
+      }}
+    >
       {children}
     </FirebaseContext.Provider>
   );

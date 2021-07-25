@@ -1,11 +1,10 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {FirebaseContext} from './firebase/provider';
 import {HashRouter as Router, Route} from 'react-router-dom';
 import Movie from './components/movie';
 import NavBar from './components/navBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './components/home';
-import {IViewer} from './types';
 import ViewerHome from './components/viewerHome';
 import ViewerPage from './components/viewerPage';
 import Footer from './components/footer';
@@ -14,6 +13,8 @@ import LogIn from './components/logIn';
 import {auth} from './firebase/config';
 import SignUp from './components/SignUp';
 
+import ProtectedRoute from './components/protectedRoute';
+import Profile from './components/profile';
 const App = () => {
   const movies = useContext(FirebaseContext).movie;
   const viewers = useContext(FirebaseContext).viewer;
@@ -44,6 +45,9 @@ const App = () => {
           <Route path = '/join'>
             <SignUp/>
           </Route>
+          <ProtectedRoute path = '/profile'>
+              <Profile/>
+            </ProtectedRoute>
           {movies.map((movie, i) => (
             <Route path={`/movies/${movie.title.replace(/ /g, '-')}`} key={i}>
               <Movie

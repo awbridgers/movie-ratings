@@ -25,6 +25,10 @@
   border: none !important;
   cursor: pointer;
 }
+.ratingName:hover{
+  color: aqua;
+  cursor: pointer;
+}
 
 .tableOfRatings {
 margin: 10px auto auto auto;

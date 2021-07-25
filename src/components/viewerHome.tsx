@@ -1,5 +1,4 @@
 import React, {useContext, useState} from 'react';
-import {IViewer} from '../types';
 import ViewerCard from './viewerCard';
 import Select, {OptionTypeBase} from 'react-select';
 import { sortViewers } from '../util/sortMovies';
