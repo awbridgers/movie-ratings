@@ -31,3 +31,9 @@
 .plainText{
   color:rgb(255, 255, 255);
 }
+.delete{
+  text-align: center;
+}
+.warning{
+  color: red;
+}
