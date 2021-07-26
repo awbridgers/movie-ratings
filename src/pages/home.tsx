@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {FirebaseContext} from '../firebase/provider';
-import MovieCard from './movieCard';
+import MovieCard from '../components/movieCard';
 import Select, {OptionTypeBase} from 'react-select';
 import {sortMovies} from '../util/sortMovies';
 import Switch from 'react-switch';

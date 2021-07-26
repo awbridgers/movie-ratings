@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Form, Button, Alert} from 'react-bootstrap';
 import '../styles/login.css';
 import {auth} from '../firebase/config';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface props {
   back: () => void;
@@ -13,7 +13,6 @@ const LogIn = ({back, type}: props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
-  const history = useHistory()
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     auth
@@ -78,7 +77,7 @@ const LogIn = ({back, type}: props) => {
             </Button>
           </div>
         </Form>
-        <div><Link onClick = {back} to = '/join'>Create an Account</Link> to start ranking movies!</div>
+        <div><Link className = 'link' onClick = {back} to = '/join'>Create an Account</Link> to start ranking movies!</div>
       </div>
     </div>
   );

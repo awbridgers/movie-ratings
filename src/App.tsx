@@ -1,20 +1,20 @@
 import React, {useContext, useState} from 'react';
 import {FirebaseContext} from './firebase/provider';
 import {HashRouter as Router, Route} from 'react-router-dom';
-import Movie from './components/movie';
+import Movie from './pages/movie';
 import NavBar from './components/navBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Home from './components/home';
-import ViewerHome from './components/viewerHome';
-import ViewerPage from './components/viewerPage';
+import Home from './pages/home';
+import ViewerHome from './pages/viewerHome';
+import ViewerPage from './pages/viewerPage';
 import Footer from './components/footer';
 import ScrollToTop from './components/scrollToTop';
 import LogIn from './components/logIn';
 import {auth} from './firebase/config';
-import SignUp from './components/SignUp';
+import SignUp from './pages/SignUp';
 
 import ProtectedRoute from './components/protectedRoute';
-import Profile from './components/profile';
+import Profile from './pages/profile';
 const App = () => {
   const movies = useContext(FirebaseContext).movie;
   const viewers = useContext(FirebaseContext).viewer;

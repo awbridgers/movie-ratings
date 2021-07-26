@@ -1,12 +1,11 @@
 import React, {useContext, useState} from 'react';
 import {useMediaQuery} from 'react-responsive';
-import StarRatings from 'react-star-ratings';
 import {AuthContext} from '../firebase/authProvider';
 import {FirebaseContext} from '../firebase/provider';
 import '../styles/profile.css';
 import {averageRating} from '../util/averageRating';
-import ChangeProfileInfo from './changeProfileInfo';
-import RatingTable from './ratingTable';
+import ChangeProfileInfo from '../components/changeProfileInfo';
+import RatingTable from '../components/ratingTable';
 import '../styles/viewerCard.css';
 import {Button} from 'react-bootstrap';
 
@@ -17,12 +16,16 @@ const Profile = () => {
   const user = useContext(AuthContext)!;
   const isMobile = useMediaQuery({maxWidth: 700});
   const userMovies = useContext(FirebaseContext).userMovie;
-  const highestRated = userMovies.length? userMovies.reduce((accumulator, current) =>
-    accumulator.score > current.score ? accumulator : current
-  ) : null
-  const lowestRated = userMovies.length ? userMovies.reduce((accumulator, current) =>
-    accumulator.score < current.score ? accumulator : current
-  ):null;
+  const highestRated = userMovies.length
+    ? userMovies.reduce((accumulator, current) =>
+        accumulator.score > current.score ? accumulator : current
+      )
+    : null;
+  const lowestRated = userMovies.length
+    ? userMovies.reduce((accumulator, current) =>
+        accumulator.score < current.score ? accumulator : current
+      )
+    : null;
 
   return (
     <div className="profile">
@@ -72,6 +75,26 @@ const Profile = () => {
       <div className="settings">
         <div className="settingsTitle">My Ratings</div>
         <div className="setttingsBody">
+          <table className="ratingInfo">
+            <tbody>
+              <tr>
+                <td>Movies Watched:</td>
+                <td>{userMovies.length}</td>
+              </tr>
+              <tr>
+                <td>Average Rating:</td>
+                <td>{averageRating(userMovies)}/10</td>
+              </tr>
+              <tr>
+                <td>Highest Rated:</td>
+                <td>{highestRated ? `${highestRated.name} (${highestRated.score}/10)`: 'N/A'} </td>
+              </tr>
+              <tr>
+                <td>Lowest Rated:</td>
+                <td>{lowestRated ? `${lowestRated.name} (${lowestRated.score}/10)`: 'N/A'} </td>
+              </tr>
+            </tbody>
+          </table>
           <RatingTable
             movie
             ratings={userMovies}
@@ -81,7 +104,9 @@ const Profile = () => {
         </div>
       </div>
       <div className="delete">
-        <Button variant="danger" onClick = {()=>setShowChange('Delete')}>Delete Account</Button>
+        <Button variant="danger" onClick={() => setShowChange('Delete')}>
+          Delete Account
+        </Button>
       </div>
     </div>
   );

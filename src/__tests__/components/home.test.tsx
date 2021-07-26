@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {screen, render, fireEvent, within} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Home from '../../components/home';
+import Home from '../../pages/home';
 import {FirebaseContext} from '../../firebase/provider';
 import {BrowserRouter as Router} from 'react-router-dom';
 import selectEvent from 'react-select-event'

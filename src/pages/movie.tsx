@@ -3,11 +3,11 @@ import {IMovieData, IRating} from '../types';
 import {getMovie} from '../util/getMovie';
 import '../styles/moviePage.css';
 import {infoString} from '../util/infoString';
-import MovieDetails from './movieDetails';
+import MovieDetails from '../components/movieDetails';
 import {useMediaQuery} from 'react-responsive';
-import RatingTable from './ratingTable';
+import RatingTable from '../components/ratingTable';
 import '../styles/login.css';
-import AddRating from './addRating';
+import AddRating from '../components/addRating';
 import { FirebaseContext } from '../firebase/provider';
 
 interface Props {

@@ -5,6 +5,7 @@ import {IRating} from '../types';
 import {sortRatings} from '../util/sortRatings';
 import '../styles/ratingsTable.css';
 import {useHistory} from 'react-router-dom';
+import { averageRating } from '../util/averageRating';
 
 interface IProps {
   ratings: IRating[];
@@ -58,6 +59,21 @@ const RatingTable = ({ratings, isMobile, title, movie}: IProps) => {
                 </td>
               </tr>
             ))}
+            <tr><td></td><td></td></tr>
+          <tr>
+            <td className="ratingsAverage">Average ({ratings.length} ratings)</td>
+            <td>
+                  <StarRatings
+                    rating={averageRating(ratings) / 2}
+                    starRatedColor="rgb(255,223,0)"
+                    starEmptyColor="rgb(30,30,30)"
+                    starDimension={!isMobile ? '35px' : '30px'}
+                    starSpacing={!isMobile ? '2px' : '0px'}
+                    name="starRating"
+                  />
+                  {` ${averageRating(ratings).toFixed(1)}/10`}
+                </td>
+          </tr>
         </tbody>
       </Table>
     </div>

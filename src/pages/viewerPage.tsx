@@ -1,6 +1,6 @@
 import React from 'react';
 import {IRating} from '../types';
-import RatingTable from './ratingTable';
+import RatingTable from '../components/ratingTable';
 import {useMediaQuery} from 'react-responsive'
 
 interface IProps {

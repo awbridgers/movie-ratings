@@ -3,6 +3,7 @@
   color:white;
   margin: 5px;
   min-width: 450px;
+  max-width: 700px;
 }
 .viewerCard a{
   color: white;
@@ -25,10 +26,12 @@
   
 }
 .viewerCardTable td{
-  font-size: 1.05rem;
+  font-size: 19px;
+  color: #bdbdbd;
+  padding:5px;
 }
 .viewerCardTable th{
-  font-size: 1.2rem;
+  font-size:20px;
   text-align: left;
   font-weight: normal;
   
@@ -48,12 +51,14 @@
     flex-basis:99%;
     min-width: 300px;
   }
+  .viewerCardTable{
+    table-layout: fixed;
+  }
   .viewerCardTable td{
-    font-size: 14px;
+    font-size: 18px;
   }
   .viewerCardTable th{
-    font-size: 1rem;
-    width:115px;
+    font-size: 18px;
   }
 
 }

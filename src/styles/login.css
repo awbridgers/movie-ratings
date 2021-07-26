@@ -1,19 +1,20 @@
-.logIn{
+.logIn {
   position: absolute;
-  top:0px;
-  bottom:0px;
-  left:0px;
-  right:0px;
-  background-color: rgba(26, 26, 26,0.9);
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: rgba(26, 26, 26, 0.9);
   z-index: 100;
+  color: white;
 }
-.logInBox{
-  width:50%;
+.logInBox {
+  width: 50%;
   position: fixed !important;
-  background-color: rgb(133, 133, 133);
+  background-color: #343a40;
   padding: 10px;
-  left:0px;
-  right:0px;
+  left: 0px;
+  right: 0px;
   margin: auto;
   top: 50%;
   transform: translateY(-50%);
@@ -22,13 +23,13 @@
   display: flex;
   flex-flow: column nowrap;
 }
-.logOutBox{
-  width:50%;
+.logOutBox {
+  width: 50%;
   min-width: 300px;
   position: fixed !important;
   padding: 10px;
-  left:0px;
-  right:0px;
+  left: 0px;
+  right: 0px;
   margin: auto;
   top: 50%;
   transform: translateY(-50%);
@@ -38,59 +39,61 @@
   flex-flow: column nowrap;
   align-items: center;
 }
-.logInTitle{
-  margin:auto;
+.logInTitle {
+  margin: auto;
   text-align: center;
 }
 
-.logInButtons{
+.logInButtons {
   margin: auto;
   display: flex;
   justify-content: center;
 }
-#submitButton, #backButton{
+#submitButton,
+#backButton {
   margin: 0px 10px;
 }
-#joinButton{
-  width:50%;
+#joinButton {
+  width: 50%;
 }
-.logInErrors{
+.logInErrors {
   margin: auto;
   font-size: 14px;
 }
-.signUp{
+.signUp {
   color: white;
 }
-.signUpTitle{
+.signUpTitle {
   font-size: 20px;
   text-align: center;
 }
-.signUpForm{
+.signUpForm {
   width: 80%;
   max-width: 500px;
   margin: auto;
 }
- a{
-  color:rgb(255, 255, 255);
+.link {
+  color: aqua;
 }
- a:hover{
-  text-decoration: none ;
-  color:aqua ;
+.link:hover{
+  color: yellow;
+  cursor: pointer;
+  text-decoration: none;
 }
-.invalid-feedback{
-  color: #bd0012
+.invalid-feedback {
+  color: #bd0012;
 }
-.form-control.is-invalid{
-  border-color: #bd0012
+.form-control.is-invalid {
+  border-color: #bd0012;
 }
 
-@media all and (max-width: 700px){
-  .logInBox{
-    width:95%;
+@media all and (max-width: 700px) {
+  .logInBox {
+    width: 95%;
     min-width: 270px;
     padding: 10px;
   }
-  .signUp{
+  .signUp {
     min-width: 300px;
   }
 }

@@ -177,7 +177,7 @@ const ChangeProfileInfo = ({type, back, currentEmail, currentName}: Props) => {
     <div className="logIn">
       <div className="logInBox">
         <div className="logInTitle">
-          {type != 'Delete' && <h2>Change {type}</h2>}
+          {type !== 'Delete' && <h2>Change {type}</h2>}
           {type === 'Delete' && <h2>Delete Account</h2>}
         </div>
         <Form className="form">

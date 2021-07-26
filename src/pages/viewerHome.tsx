@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import ViewerCard from './viewerCard';
+import ViewerCard from '../components/viewerCard';
 import Select, {OptionTypeBase} from 'react-select';
 import { sortViewers } from '../util/sortMovies';
 import { FirebaseContext } from '../firebase/provider';

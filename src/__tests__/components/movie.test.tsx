@@ -1,7 +1,7 @@
 import React, {useContext, useEffect} from 'react';
 import {screen, render, fireEvent, within, waitFor, findByText, findByTestId, waitForElementToBeRemoved} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Movie from '../../components/movie';
+import Movie from '../../pages/movie';
 import {FirebaseContext} from '../../firebase/provider';
 import {BrowserRouter as Router} from 'react-router-dom';
 import { IMovieData } from '../../types';
