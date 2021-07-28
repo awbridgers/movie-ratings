@@ -32,10 +32,9 @@ const ViewerCard = ({ratings, name, id}: IViewer) => {
             <tr>
               <th>Average</th>
               <td>
-               
-                {averageRating(ratings).toFixed(
+                {ratings.length ? `${averageRating(ratings).toFixed(
                   1
-                )}/10
+                )}/10` : 'N/A'}
               </td>
             </tr>
 

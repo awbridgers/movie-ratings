@@ -83,24 +83,38 @@ const Profile = () => {
               </tr>
               <tr>
                 <td>Average Rating:</td>
-                <td>{averageRating(userMovies)}/10</td>
+                <td>
+                  {userMovies.length
+                    ? `${averageRating(userMovies)}/10`
+                    : 'N/A'}
+                </td>
               </tr>
               <tr>
                 <td>Highest Rated:</td>
-                <td>{highestRated ? `${highestRated.name} (${highestRated.score}/10)`: 'N/A'} </td>
+                <td>
+                  {highestRated
+                    ? `${highestRated.name} (${highestRated.score}/10)`
+                    : 'N/A'}
+                </td>
               </tr>
               <tr>
                 <td>Lowest Rated:</td>
-                <td>{lowestRated ? `${lowestRated.name} (${lowestRated.score}/10)`: 'N/A'} </td>
+                <td>
+                  {lowestRated
+                    ? `${lowestRated.name} (${lowestRated.score}/10)`
+                    : 'N/A'}
+                </td>
               </tr>
             </tbody>
           </table>
-          <RatingTable
-            movie
-            ratings={userMovies}
-            isMobile={isMobile}
-            title=""
-          />
+          {!!userMovies.length && (
+            <RatingTable
+              movie
+              ratings={userMovies}
+              isMobile={isMobile}
+              title=""
+            />
+          )}
         </div>
       </div>
       <div className="delete">
