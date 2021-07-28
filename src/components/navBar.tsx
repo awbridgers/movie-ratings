@@ -1,21 +1,52 @@
-import React, { useEffect, useState } from 'react';
-import {Navbar, Nav} from 'react-bootstrap';
-import {useLocation} from 'react-router-dom'
-import {LinkContainer} from 'react-router-bootstrap'
+import React, {useEffect, useState, useContext} from 'react';
+import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
+import {useLocation} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import {AuthContext} from '../firebase/authProvider';
+import { FirebaseContext } from '../firebase/provider';
 
-const NavBar = () => {
-  const [expanded, setExpanded] = useState<boolean>(false)
+interface props {
+  signIn: () => void;
+  signOut: ()=> void;
+}
+
+const NavBar = ({signIn, signOut}: props) => {
+  const [expanded, setExpanded] = useState<boolean>(false);
   const {pathname} = useLocation();
-  useEffect(()=>{
-    setExpanded(false)
-  },[pathname])
+  const user = useContext(AuthContext);
+  const displayName = useContext(FirebaseContext).displayName;
+  useEffect(() => {
+    setExpanded(false);
+  }, [pathname]);
   return (
-    <Navbar bg="dark" variant="dark" expand="sm" expanded = {expanded}  onToggle = {setExpanded}>
+    <Navbar
+      bg="dark"
+      variant="dark"
+      expand="sm"
+      expanded={expanded}
+      onToggle={setExpanded}
+    >
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
-          <LinkContainer to = '/'><Nav.Link>Home</Nav.Link></LinkContainer>
-          <LinkContainer to = '/viewers'><Nav.Link>Viewers</Nav.Link></LinkContainer>
+          <Nav.Link as={Link} to="/">
+            Home
+          </Nav.Link>
+          <Nav.Link as={Link} to="/viewers">
+            Viewers
+          </Nav.Link>
+        </Nav>
+        <Nav className="justify-content-right">
+          {user && displayName ? (
+            <NavDropdown alignRight title = {displayName} id = 'dropdown'>
+              <NavDropdown.Item as={Link} to = '/profile'>Profile</NavDropdown.Item>
+              <NavDropdown.Item onClick= {signOut}>Sign Out</NavDropdown.Item>
+            </NavDropdown>
+          ) : (
+            <Nav.Link id="logInButton" onClick={signIn}>
+              Sign In
+            </Nav.Link>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>

@@ -1,10 +1,13 @@
 export interface IRating {
-  name: string,
-  score: number
+  name: string;
+  score: number;
+  id: string;
+
 }
 export interface IViewer {
-  name: string,
+  name: string;
   ratings : IRating[];
+  id: string;
 }
 export interface IMovie {
   title: string,
@@ -28,4 +31,7 @@ export interface IMovieData {
   vote_average: number,
   vote_count: number,
   tagline: string
+}
+declare global {
+  interface Window { recaptchaVerifier: any; }
 }

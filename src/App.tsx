@@ -1,53 +1,53 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {FirebaseContext} from './firebase/provider';
 import {HashRouter as Router, Route} from 'react-router-dom';
-import Movie from './components/movie';
+import Movie from './pages/movie';
 import NavBar from './components/navBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Home from './components/home';
-import {IViewer} from './types';
-import ViewerHome from './components/viewerHome';
-import ViewerPage from './components/viewerPage';
+import Home from './pages/home';
+import ViewerHome from './pages/viewerHome';
+import ViewerPage from './pages/viewerPage';
 import Footer from './components/footer';
 import ScrollToTop from './components/scrollToTop';
+import LogIn from './components/logIn';
+import {auth} from './firebase/config';
+import SignUp from './pages/SignUp';
 
+import ProtectedRoute from './components/protectedRoute';
+import Profile from './pages/profile';
 const App = () => {
-  const movies = useContext(FirebaseContext);
-  const [viewerData, setViewerData] = useState<IViewer[]>([]);
-  useEffect(() => {
-    const getViewerData = () => {
-      let viewerArray: IViewer[] = [];
-      movies.forEach((movie) => {
-        movie.ratings.forEach((rating) => {
-          const index = viewerArray.findIndex((x) => x.name === rating.name);
-          if (index === -1) {
-            //not in the array, add the name
-            viewerArray.push({
-              name: rating.name,
-              ratings: [{name: movie.title, score: rating.score}],
-            });
-          } else {
-            //name is already in the array
-            viewerArray[index].ratings.push({
-              name: movie.title,
-              score: rating.score,
-            });
-          }
-        });
+  const movies = useContext(FirebaseContext).movie;
+  const viewers = useContext(FirebaseContext).viewer;
+  const [login, setLogin] = useState<boolean>(false);
+  const [logOut, setLogOut] = useState<boolean>(false);
+  
+  const signOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        setLogOut(true);
+      })
+      .catch((e) => {
+        console.log(e.message);
       });
-      setViewerData(viewerArray);
-    };
-    getViewerData();
-  }, [movies]);
+  };
   return (
-    <div>
+    <div style={{position: 'relative'}}>
       <Router>
+      {login && <LogIn type="in" back={() => setLogin(false)} />}
+      {logOut && <LogIn type="out" back={() => setLogOut(false)} />}
         <ScrollToTop />
-        <NavBar />
+        <NavBar signOut={signOut} signIn={() => setLogin(true)} />
         <div className="appBody">
           <Route exact path="/">
             <Home />
           </Route>
+          <Route path = '/join'>
+            <SignUp/>
+          </Route>
+          <ProtectedRoute path = '/profile'>
+              <Profile/>
+            </ProtectedRoute>
           {movies.map((movie, i) => (
             <Route path={`/movies/${movie.title.replace(/ /g, '-')}`} key={i}>
               <Movie
@@ -60,10 +60,10 @@ const App = () => {
             </Route>
           ))}
           <Route exact path="/viewers">
-            <ViewerHome viewerData={viewerData} />
+            <ViewerHome/>
           </Route>
-          {viewerData.map((viewer,i) => (
-            <Route key = {i} path={`/viewers/${viewer.name}`}>
+          {viewers.map((viewer, i) => (
+            <Route key={i} path={`/viewers/${viewer.id}`}>
               <ViewerPage name={viewer.name} ratings={viewer.ratings} />
             </Route>
           ))}

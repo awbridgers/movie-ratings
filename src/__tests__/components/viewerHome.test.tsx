@@ -11,7 +11,7 @@ import {
 } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import {BrowserRouter as Router} from 'react-router-dom';
-import ViewerHome from '../../components/viewerHome';
+import ViewerHome from '../../pages/viewerHome';
 import selectEvent from 'react-select-event';
 
 const props = {

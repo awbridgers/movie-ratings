@@ -1,11 +1,13 @@
-import React from 'react'
+import React, {useContext} from 'react';
 import {IRating} from '../types';
 import '../styles/moviePage.css';
 import RatingCircle from './ratingCircle';
 import {averageRating} from '../util/averageRating';
 import {getDate} from '../util/getDate';
 import {ImCross, ImCheckmark} from 'react-icons/im';
-import '../styles/movieDetails.css'
+import '../styles/movieDetails.css';
+import {Button} from 'react-bootstrap';
+import {AuthContext} from '../firebase/authProvider';
 
 interface Props {
   date: Date;
@@ -16,6 +18,9 @@ interface Props {
   budget: number;
   revenue: number;
   cage: boolean;
+  addRating: () => void;
+  deleteRating:()=>void;
+  userRating: IRating | undefined;
 }
 
 const MovieDetails = ({
@@ -27,7 +32,11 @@ const MovieDetails = ({
   budget,
   revenue,
   cage,
+  addRating,
+  userRating,
+  deleteRating
 }: Props) => {
+  const user = useContext(AuthContext);
   return (
     <div className="detailsPage">
       <div className="movieRatings">
@@ -49,9 +58,9 @@ const MovieDetails = ({
           <div className="heading">Nic Cage</div>
           <div className=" = detailBody">
             {cage ? (
-              <ImCheckmark size={20} color="#03AC13" data-testid = 'check'/>
+              <ImCheckmark size={20} color="#03AC13" data-testid="check" />
             ) : (
-              <ImCross size={20} color="#FF0800" data-testid = 'x'/>
+              <ImCross size={20} color="#FF0800" data-testid="x" />
             )}
           </div>
         </div>
@@ -71,6 +80,28 @@ const MovieDetails = ({
           <div className="heading">Date Watched</div>
           <div className=" = detailBody">{getDate(date)}</div>
         </div>
+        {user && (
+          <div className="revenue">
+            <div className="heading">Your Rating</div>
+            {userRating ? (
+              <div className=" = detailBody">
+                {userRating.score}/10 |{' '}
+                <div
+                  className = 'changeRating'
+                  onClick={addRating}
+                >
+                  Change
+                </div>
+                <div style = {{display: 'inline'}} className = 'detailBody'> | </div>
+                <div className = 'changeRating' onClick = {deleteRating}>Delete</div>
+              </div>
+            ) : (
+              <Button size="sm" variant="secondary" onClick={addRating}>
+                Add Rating
+              </Button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

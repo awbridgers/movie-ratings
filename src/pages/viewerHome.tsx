@@ -1,12 +1,10 @@
-import React, {useState} from 'react';
-import {IViewer} from '../types';
-import ViewerCard from './viewerCard';
+import React, {useContext, useState} from 'react';
+import ViewerCard from '../components/viewerCard';
 import Select, {OptionTypeBase} from 'react-select';
 import { sortViewers } from '../util/sortMovies';
+import { FirebaseContext } from '../firebase/provider';
 
-interface IProps {
-  viewerData: IViewer[];
-}
+
 const options = [
   {value: 'rateA', label: 'Rating (Ascending)'},
   {value: 'rateD', label: 'Rating (Descending)'},
@@ -14,9 +12,9 @@ const options = [
   {value: 'titleD', label: 'Name (Descending)'},
 ];
 
-const ViewerHome = ({viewerData}: IProps) => {
-  const [sortType, setSortType] = useState<OptionTypeBase>(options[3]);
-
+const ViewerHome = () => {
+  const viewers = useContext(FirebaseContext).viewer;
+  const [sortType, setSortType] = useState<OptionTypeBase>(options[2]);
   return (
     <div className="viewerHomePage">
       <div className="viewerSort">
@@ -31,8 +29,8 @@ const ViewerHome = ({viewerData}: IProps) => {
         />
       </div>
       <div className="viewerHome">
-        {viewerData.sort((a,b)=>sortViewers(a,b,sortType)).map((viewer, i) => (
-          <ViewerCard key={viewer.name} ratings={viewer.ratings} name={viewer.name} />
+        {viewers.slice().sort((a,b)=>sortViewers(a,b,sortType)).map((viewer) => (
+          <ViewerCard key={viewer.id} ratings={viewer.ratings} name={viewer.name} id={viewer.id}/>
         ))}
       </div>
     </div>
