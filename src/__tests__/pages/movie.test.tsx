@@ -17,7 +17,7 @@ const props = {
   title: 'Test Movie',
   id: '123456',
   date: new Date('01/28/2006'),
-  ratings: [{name:'Bob', score: 8}, {name:'Joe', score: 6}],
+  ratings: [{name:'Bob', score: 8, id: '12432412'}, {name:'Joe', score: 6, id: '2342'}],
   cage: true
 }
 const movieData: IMovieData = {

@@ -17,8 +17,8 @@ import selectEvent from 'react-select-event';
 const props = {
   name: 'Nic Cage',
   ratings: [
-    {name: 'Movie One', score: 10},
-    {name: 'Movie Two', score: 5},
+    {name: 'Movie One', score: 10, id: '1'},
+    {name: 'Movie Two', score: 5, id: '2'},
   ],
 };
 

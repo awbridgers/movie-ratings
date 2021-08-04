@@ -5,14 +5,15 @@ import Home from '../../pages/home';
 import {FirebaseContext} from '../../firebase/provider';
 import {BrowserRouter as Router} from 'react-router-dom';
 import selectEvent from 'react-select-event'
+import { MovieContext } from '../../types';
 
 const mockData = [
   {
     title: 'First Movie',
     date: new Date('01/01/01'),
     ratings: [
-      {name: 'Bob', score: 1},
-      {name: 'Joe', score: 10},
+      {name: 'Bob', score: 1, id: 'Bob'},
+      {name: 'Joe', score: 10, id: 'Joe'},
     ],
     cage: false,
     id: '1111',
@@ -21,8 +22,8 @@ const mockData = [
     title: 'Second Movie',
     date: new Date('02/02/02'),
     ratings: [
-      {name: 'Bob', score: 10},
-      {name: 'Joe', score: 10},
+      {name: 'Bob', score: 10, id: 'Bob'},
+      {name: 'Joe', score: 10, id: 'Joe'},
     ],
     cage: true,
     id: '2222',
@@ -31,18 +32,25 @@ const mockData = [
     title: 'Third Movie',
     date: new Date('03/03/03'),
     ratings: [
-      {name: 'Bob', score: 8},
-      {name: 'Joe', score: 8},
+      {name: 'Bob', score: 8, id: 'Bob'},
+      {name: 'Joe', score: 8, id: 'Joe'},
     ],
     cage: false,
     id: '333',
   },
 ];
 
+const val: MovieContext = {
+  movie: mockData,
+  viewer:[],
+  userMovie: [],
+  displayName: null
+}
+
 describe('home page component', () => {
   beforeEach(() => {
     render(
-      <FirebaseContext.Provider value={mockData}>
+      <FirebaseContext.Provider value={val}>
         <Router>
           <Home />
         </Router>

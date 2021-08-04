@@ -16,6 +16,12 @@ export interface IMovie {
   id: string,
   cage: boolean
 }
+export interface MovieContext {
+    movie: IMovie[];
+    viewer: IViewer[];
+    userMovie: IRating[];
+    displayName: string | null;
+}
 
 export interface IMovieData {
   budget: number,

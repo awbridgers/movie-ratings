@@ -2,19 +2,14 @@ import {db} from './config';
 import {createContext, useContext, useEffect, useState} from 'react';
 import React from 'react';
 import {ratingsArray} from '../util/ratingsArray';
-import {IMovie, IRating, IViewer} from '../types';
+import {IMovie, IRating, IViewer, MovieContext} from '../types';
 import {AuthContext} from './authProvider';
 
 interface IProvider {
   children: React.ReactNode;
 }
 
-export const FirebaseContext = createContext<{
-  movie: IMovie[];
-  viewer: IViewer[];
-  userMovie: IRating[];
-  displayName: string | null;
-}>({movie: [], viewer: [], userMovie: [], displayName: null});
+export const FirebaseContext = createContext<MovieContext>({movie: [], viewer: [], userMovie: [], displayName: null});
 
 const FirebaseProvider = ({children}: IProvider) => {
   const [movieArray, setMovieArray] = useState<IMovie[]>([]);
