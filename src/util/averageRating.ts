@@ -5,5 +5,5 @@ export const averageRating = (ratings: IRating[]) => {
   ratings.forEach((rating)=>{
     total += rating.score;
   })
-  return total/ratings.length
+  return ratings.length !== 0 ? total/ratings.length : 0;
 }
