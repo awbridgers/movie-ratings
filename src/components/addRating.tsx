@@ -21,7 +21,7 @@ const AddRating = ({title, back, userScore, deleteRating}: Props) => {
   const displayName = useContext(FirebaseContext).displayName!; //user must exist to access this page
   const uid = user.uid;
   const type = deleteRating ? 'Delete' : userScore ? 'Edit' : 'Add';
-
+ 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //reset the error
@@ -30,11 +30,11 @@ const AddRating = ({title, back, userScore, deleteRating}: Props) => {
     if (!isNaN(ratingNumber) && ratingNumber >= 0 && ratingNumber <= 10) {
       //add the rating to both the movie and the user
       let updates: {[key: string]: any} = {};
-      updates[`/movies/${title}/ratings/${uid}`] = {
+      updates[`movies/${title}/ratings/${uid}`] = {
         displayName: displayName,
         score: Math.round(ratingNumber * 10) / 10,
       };
-      updates[`/users/${uid}/ratings/${title}`] =
+      updates[`users/${uid}/ratings/${title}`] =
         Math.round(ratingNumber * 10) / 10;
       db.ref()
         .update(updates)
@@ -112,7 +112,7 @@ const AddRating = ({title, back, userScore, deleteRating}: Props) => {
               </Col>
             </Form.Group>
           )}
-          <div className="logInButtons">
+          <div className="logInButtons" data-testid = 'buttons'>
             {!deleteRating && <Button variant="primary" type="submit" id="submitButton">
               Submit
             </Button>}

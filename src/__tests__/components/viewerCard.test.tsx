@@ -18,11 +18,12 @@ jest.mock('react-responsive');
 
 const props = {
   ratings: [
-    {name: 'Movie One', score: 5},
-    {name: 'Movie Two', score: 7},
-    {name: 'Movie Three', score: 2},
+    {name: 'Movie One', score: 5, id: '1'},
+    {name: 'Movie Two', score: 7, id: '2'},
+    {name: 'Movie Three', score: 2, id: '3'},
   ],
   name: 'John',
+  id: '123abc'
 };
 
 describe('viewerCard Component', () => {
@@ -32,31 +33,7 @@ describe('viewerCard Component', () => {
         <ViewerCard {...props} />
       </Router>
     );
-    expect(screen.getByText('Movies Watched:')).toBeTruthy();
-  });
-  it('renders the mobile view', () => {
-    jest.spyOn(MediaQuery, 'useMediaQuery').mockReturnValue(true);
-    const {container} = render(
-      <Router>
-        <ViewerCard {...props} />
-      </Router>
-    );
-    const svg = container.querySelector('[class = "widget-svg"]');
-    expect(svg).toHaveStyle(
-      'width: 15px; height: 15px; transition: transform .2s ease-in-out;'
-    );
-  });
-  it('renders the desktop view', () => {
-    jest.spyOn(MediaQuery, 'useMediaQuery').mockReturnValue(false);
-    const {container} = render(
-      <Router>
-        <ViewerCard {...props} />
-      </Router>
-    );
-    const svg = container.querySelector('[class = "widget-svg"]');
-    expect(svg).toHaveStyle(
-      'width: 22px; height: 22px; transition: transform .2s ease-in-out;'
-    );
+    expect(screen.getByText('Ratings')).toBeTruthy();
   });
   it('shows the highest and lowest rated movies', () => {
     render(
@@ -69,4 +46,14 @@ describe('viewerCard Component', () => {
     expect(within(highest).getByText('Movie Two (7/10)')).toBeTruthy();
     expect(within(lowest).getByText('Movie Three (2/10)')).toBeTruthy();
   });
+  it('should show n/a for highest and lowest and avg rated if no ratings', () => {
+    const newProps = {...props, ratings:[]}
+    render(
+      <Router>
+        <ViewerCard {...newProps} />
+      </Router>
+    );
+    expect(screen.getAllByText('N/A')).toHaveLength(3)
+  })
+  
 });

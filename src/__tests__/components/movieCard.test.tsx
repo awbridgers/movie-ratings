@@ -16,6 +16,14 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import {IMovieData} from '../../types';
 import * as GetMovie from '../../util/getMovie';
 
+const mockPush = jest.fn();
+jest.mock('react-router-dom',()=>({
+  ...jest.requireActual('react-router-dom'),
+  useHistory: ()=>({
+    push: mockPush
+  })
+}))
+
 const movieData: IMovieData = {
   budget: 69000000,
   genres: [{id: 1, name: 'action'}],
@@ -36,8 +44,8 @@ const props = {
   id: '123456',
   date: new Date('01/28/2006'),
   ratings: [
-    {name: 'Bob', score: 8},
-    {name: 'Joe', score: 6},
+    {name: 'Bob', score: 8, id: '123456'},
+    {name: 'Joe', score: 6, id: '654321'},
   ],
   cage: true,
 };
