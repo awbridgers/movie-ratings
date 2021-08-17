@@ -81,7 +81,7 @@ const Profile = () => {
                 <td>Movies Watched:</td>
                 <td>{userMovies.length}</td>
               </tr>
-              <tr>
+              <tr data-testid = 'avg'>
                 <td>Average Rating:</td>
                 <td>
                   {userMovies.length
@@ -89,7 +89,7 @@ const Profile = () => {
                     : 'N/A'}
                 </td>
               </tr>
-              <tr>
+              <tr data-testid = 'highest'>
                 <td>Highest Rated:</td>
                 <td>
                   {highestRated
@@ -97,7 +97,7 @@ const Profile = () => {
                     : 'N/A'}
                 </td>
               </tr>
-              <tr>
+              <tr data-testid = 'lowest'>
                 <td>Lowest Rated:</td>
                 <td>
                   {lowestRated

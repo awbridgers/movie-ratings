@@ -134,7 +134,6 @@ const ChangeProfileInfo = ({type, back, currentEmail, currentName}: Props) => {
         break;
       case 'Delete':
         //delete all the users ratings
-
         user
           .reauthenticateWithCredential(cred)
           .then((userCredential) => {
@@ -148,9 +147,20 @@ const ChangeProfileInfo = ({type, back, currentEmail, currentName}: Props) => {
               db.ref()
                 .update(deleteDB)
                 .then(() => {
-                  reCred.delete().then(() => {
-                    setSuccess(true);
-                  });
+                  reCred
+                    .delete()
+                    .then(() => {
+                      setSuccess(true);
+                    })
+                    .catch((e) => {
+                      setErrors((prev) => ({
+                        ...prev,
+                        currentPassword: e.message,
+                      }));
+                    });
+                })
+                .catch((e) => {
+                  setErrors((prev) => ({...prev, currentPassword: e.message}));
                 });
             }
           })
@@ -326,7 +336,7 @@ const ChangeProfileInfo = ({type, back, currentEmail, currentName}: Props) => {
               </Form.Group>
             </>
           )}
-          <div className="logInButtons">
+          <div className="logInButtons" data-testid="buttons">
             {type !== 'Delete' && (
               <Button
                 variant="primary"

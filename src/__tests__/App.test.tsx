@@ -1,7 +1,11 @@
 import React from 'react';
 import App from '../App';
-import {render, screen, fireEvent} from '@testing-library/react';
+import {render, screen, fireEvent, waitFor} from '@testing-library/react';
 import {FirebaseContext} from '../firebase/provider';
+import {auth} from '../firebase/config';
+import firebase from 'firebase/app';
+import {AuthContext} from '../firebase/authProvider';
+import {MovieContext} from '../types';
 
 window.scrollTo = jest.fn();
 
@@ -32,27 +36,50 @@ const movies = [
     ratings: [
       {name: 'Bob', score: 8},
       {name: 'Joe', score: 8},
-      {name: 'John', score: 8}
+      {name: 'John', score: 8},
     ],
     cage: false,
     id: '333',
   },
 ];
-
-describe('App component', () => {
-  it('renders without crashing', () => {
-    render(<App />);
-    expect(screen.getByText('Home')).toBeTruthy();
-  });
-  it('loads the viewer Data', () => {
-    render(
-      <FirebaseContext.Provider value={movies}>
+const val: MovieContext = {
+  movie: [],
+  viewer: [],
+  userMovie: [],
+  displayName: 'TestName',
+};
+const renderComp = (user: firebase.User | null) => {
+  render(
+    <AuthContext.Provider value={user}>
+      <FirebaseContext.Provider value={val}>
         <App />
       </FirebaseContext.Provider>
-    );
-    fireEvent.click(screen.getByText('Viewers'));
-    expect(screen.getByText('Joe')).toBeTruthy();
-    expect(screen.getByText('Bob')).toBeTruthy();
-    expect(screen.getByText('John')).toBeTruthy();
+    </AuthContext.Provider>
+  );
+};
+
+describe('App Comp', () => {
+  it('should open the sign in screen', async () => {
+    renderComp(null);
+    fireEvent.click(screen.getByText('Sign In'));
+    expect(screen.getByLabelText('Email')).toBeInTheDocument();
   });
+  it('should run the signout function', async () => {
+    renderComp({uid:'1234567'} as firebase.User);
+    const spy = jest.spyOn(auth, 'signOut')
+    fireEvent.click(screen.getByText('TestName'));
+    fireEvent.click(screen.getByText('Sign Out'));
+    
+    await waitFor(()=>expect(spy).toHaveBeenCalled())
+  });
+  it('should catch error on sign out', async () => {
+    renderComp({uid:'1234567'} as firebase.User);
+    const spy = jest.spyOn(auth, 'signOut').mockRejectedValueOnce({message:'error'})
+    const log = jest.spyOn(console, 'log');
+    fireEvent.click(screen.getByText('TestName'));
+    fireEvent.click(screen.getByText('Sign Out'));
+    
+    await waitFor(()=>expect(log).toHaveBeenCalledWith('error'))
+  })
+  
 });

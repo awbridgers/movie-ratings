@@ -3,28 +3,51 @@ import { ratingsArray } from '../../util/ratingsArray'
 import firebase from 'firebase/app'
 import 'firebase/database'
 
-const ratings = [
+const movieRatings = [
   {
     key: 'Adam',
-    val:()=> 7
+    val:()=> ({
+      displayName: 'Adam',
+      score: 7
+    })
   } ,
   {
     key: 'Stephen',
-    val:()=> 8
+    val:()=> ({
+      displayName: 'Stephen',
+      score: 8
+    })
   } 
 ] as any as firebase.database.DataSnapshot
 
+const userRatings = [
+  {
+    key: 'Test Movie',
+    val:()=>8
+  }
+] as any as firebase.database.DataSnapshot
+
 describe('ratingsArray Function', () => {
-  it('gets the ratings array',()=>{
-    expect(ratingsArray(ratings)).toEqual([
+  it('gets the ratings array for a movie',()=>{
+    expect(ratingsArray(movieRatings, true)).toEqual([
       {
         name: 'Adam',
-        score: 7
+        score: 7,
+        id: 'Adam'
       },
       {
         name: 'Stephen',
-        score: 8
+        score: 8,
+        id: 'Stephen'
       }
     ])
   })
+  it('should get the ratings array for user ratings', () => {
+    expect(ratingsArray(userRatings, false)).toEqual([{
+      name: 'Test Movie',
+      score: 8,
+      id: 'Test-Movie'
+    }])
+  })
+  
 })
