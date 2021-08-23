@@ -43,21 +43,21 @@ const Profile = () => {
           <div className="settingsInfo">
             <table className="infoTable">
               <tbody>
-                <tr>
+                <tr data-testid = 'email'>
                   <td>Email</td>
                   <td>{user.email}</td>
                   <td className="change" onClick={() => setShowChange('Email')}>
                     Change
                   </td>
                 </tr>
-                <tr>
+                <tr data-testid = 'name'>
                   <td>Display Name</td>
                   <td>{user.displayName}</td>
                   <td className="change" onClick={() => setShowChange('Name')}>
                     Change
                   </td>
                 </tr>
-                <tr>
+                <tr data-testid = 'password'>
                   <td>Password</td>
                   <td>N/A</td>
                   <td

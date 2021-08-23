@@ -72,7 +72,8 @@
       "!**/src/reportWebVitals.ts",
       "!**/src/types.ts",
       "!**/src/images/**",
-      "!**/src/index.tsx"
+      "!**/src/index.tsx",
+      "!**/src/firebase/authProvider.tsx"
     ]
   }
 }

@@ -1,21 +1,15 @@
-import React, {useContext, useEffect} from 'react';
+import React from 'react'
 import {
   screen,
   render,
-  fireEvent,
-  within,
-  waitFor,
-  findByText,
-  findByTestId,
-  waitForElementToBeRemoved,
 } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import MovieCard from '../../components/movieCard';
-import {FirebaseContext} from '../../firebase/provider';
 import {BrowserRouter as Router} from 'react-router-dom';
 import {IMovieData} from '../../types';
 import * as GetMovie from '../../util/getMovie';
 
+const mockSetState = jest.fn();
 const mockPush = jest.fn();
 jest.mock('react-router-dom',()=>({
   ...jest.requireActual('react-router-dom'),
@@ -23,6 +17,8 @@ jest.mock('react-router-dom',()=>({
     push: mockPush
   })
 }))
+
+
 
 const movieData: IMovieData = {
   budget: 69000000,
@@ -65,4 +61,17 @@ describe('movieCard Component', () => {
      const title = await screen.findByText(/Test Movie/);
      expect(title).toBeTruthy();
   });
+  it('should cancel async fetch on unmount', () => {
+    jest.spyOn(React, 'useState').mockImplementation(()=>[
+      {title: 'Test Movie'} as IMovieData, mockSetState
+    ])
+    const {unmount} = render(
+      <Router>
+        <MovieCard {...props} />
+      </Router>
+    );
+    unmount();
+    expect(mockSetState).not.toHaveBeenCalled();
+  })
+  
 });

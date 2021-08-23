@@ -6,7 +6,8 @@ import App from '../../App';
 import {MovieContext} from '../../types';
 import {stringify} from 'node:querystring';
 import ViewerHome from '../../pages/viewerHome';
-import { BrowserRouter } from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
+import {AuthContext} from '../../firebase/authProvider';
 
 //mocks
 window.scrollTo = jest.fn();
@@ -18,6 +19,7 @@ jest.mock('../../firebase/config', () => ({
     ref: (type: string) => ({
       once: type.includes('movie') ? mockOnceMovie : mockOnceUser,
       on: mockOn,
+      off: jest.fn()
     }),
   },
 }));
@@ -31,8 +33,14 @@ const movieData = [
       cage: true,
     }),
     child: () => [
-      {key:'123456', val: () => ({displayName: 'Adam', score: 6, id: '123456'})},
-      {key:'654321', val: () => ({displayName: 'Sam', score: 3, id: '654321'})},
+      {
+        key: '123456',
+        val: () => ({displayName: 'Adam', score: 6, id: '123456'}),
+      },
+      {
+        key: '654321',
+        val: () => ({displayName: 'Sam', score: 3, id: '654321'}),
+      },
     ],
   },
   {
@@ -43,8 +51,14 @@ const movieData = [
       cage: false,
     }),
     child: () => [
-      {key:'123456',val: () => ({displayName: 'Adam', score: 8, id: '123456'})},
-      {key:'654321',val: () => ({displayName: 'Sam', score: 1, id: '654321'})},
+      {
+        key: '123456',
+        val: () => ({displayName: 'Adam', score: 8, id: '123456'}),
+      },
+      {
+        key: '654321',
+        val: () => ({displayName: 'Sam', score: 1, id: '654321'}),
+      },
     ],
   },
 ];
@@ -66,7 +80,6 @@ const viewerData = [
     val: () => ({
       ratings: [],
       displayName: 'Sam',
-      
     }),
     key: '654321',
     child: () => [
@@ -113,7 +126,7 @@ const results: MovieContext = {
     },
   ],
   userMovie: [],
-  displayName: ''
+  displayName: '',
 };
 
 const val: MovieContext = {
@@ -123,13 +136,13 @@ const val: MovieContext = {
   displayName: 'Adam',
 };
 const user = {} as unknown as firebase.User;
-
+const TestApp = () => {
+  const data = useContext(FirebaseContext);
+  return <div>{JSON.stringify(data)}</div>;
+};
 const renderComp = () => {
   //just return the data as a string
-  const TestApp = () => {
-    const data = useContext(FirebaseContext);
-    return <div>{JSON.stringify(data)}</div>;
-  };
+
   render(
     <FirebaseProvider>
       <TestApp />
@@ -156,22 +169,81 @@ describe('Firebase provider', () => {
     beforeEach(() => {
       mockOnceMovie.mockResolvedValue(movieData);
       mockOnceUser.mockResolvedValue(viewerData);
+      mockOn.mockImplementation(
+        (t: string, cb: (snap: firebase.database.DataSnapshot) => void) =>
+          cb({val: () => null} as firebase.database.DataSnapshot)
+      );
     });
     it('should load the movie data', async () => {
       await waitFor(() => renderComp());
-      expect(expect(screen.getByText(JSON.stringify(results))).toBeInTheDocument())
+      expect(
+        expect(screen.getByText(JSON.stringify(results))).toBeInTheDocument()
+      );
     });
     it('should throw error on movie fetch', async () => {
-      mockOnceMovie.mockRejectedValueOnce({message:'error'})
+      mockOnceMovie.mockRejectedValueOnce({message: 'error'});
       const spy = jest.spyOn(console, 'log');
-      await waitFor(()=>renderComp())
-      await waitFor(()=>expect(spy).toHaveBeenCalledWith('error'))
-    })
+      await waitFor(() => renderComp());
+      await waitFor(() => expect(spy).toHaveBeenCalledWith('error'));
+    });
     it('should catch error on viewer fetch', async () => {
-      mockOnceUser.mockRejectedValueOnce({message:"error viewer"});
+      mockOnceUser.mockRejectedValueOnce({message: 'error viewer'});
       const spy = jest.spyOn(console, 'log');
-      await waitFor(()=>renderComp())
-      await waitFor(()=>expect(spy).toHaveBeenCalledWith('error viewer'))
+      await waitFor(() => renderComp());
+      await waitFor(() => expect(spy).toHaveBeenCalledWith('error viewer'));
+    });
+    it('should change display name to logged in user', async () => {
+      mockOn.mockImplementationOnce((t: string, cb: (snap: firebase.database.DataSnapshot) => void) =>
+      cb({child:()=>[],val: () => ({displayName: 'adam',})} as unknown as firebase.database.DataSnapshot)
+  );
+      await waitFor(() =>
+        render(
+          <AuthContext.Provider value={{uid: '5'} as firebase.User}>
+            <FirebaseProvider>
+              <TestApp />
+            </FirebaseProvider>
+          </AuthContext.Provider>
+        )
+      );
+      const display = {...results, displayName: 'adam'};
+      await screen.findByText(JSON.stringify(display));
+      expect(screen.getByText(JSON.stringify(display))).toBeInTheDocument();
+    });
+    it('should set display name to empty string', async() => {
+      mockOn.mockImplementationOnce((t: string, cb: (snap: firebase.database.DataSnapshot) => void) =>
+      cb({child:()=>[],val: () => (null)} as unknown as firebase.database.DataSnapshot)
+  );
+      await waitFor(() =>
+        render(
+          <AuthContext.Provider value={{uid: '5'} as firebase.User}>
+            <FirebaseProvider>
+              <TestApp />
+            </FirebaseProvider>
+          </AuthContext.Provider>
+        )
+      );
+      const display = {...results, displayName: ''};
+      await screen.findByText(JSON.stringify(display));
+      expect(screen.getByText(JSON.stringify(display))).toBeInTheDocument();
+    })
+    it('should not add the viewer if they have no ratings',async () => {
+      const noMovie = [{
+        val: () => ({
+          ratings: null,
+          displayName: 'Adam',
+        }),
+        key: '123456',
+        child: () => [
+          {
+            val: () => 6,
+            key: 'Test Movie',
+          },
+        ],
+      }]
+      mockOnceUser.mockResolvedValueOnce(noMovie);
+      renderComp();
+      const newResults = {...results, viewer:[]}
+      await waitFor(()=>expect(screen.getByText(JSON.stringify(newResults))).toBeInTheDocument())
     })
   });
 });

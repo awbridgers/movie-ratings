@@ -5,32 +5,40 @@ import {getMovie} from '../util/getMovie';
 import {averageRating} from '../util/averageRating';
 import {Link} from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
-import '../styles/movieCard.css'
+import '../styles/movieCard.css';
 
 interface Props extends IMovie {}
 
 const MovieCard = ({title, id, date, ratings}: Props) => {
   const [movieData, setMovieData] = useState<IMovieData>();
   useEffect(() => {
+    let mounted = true;
     const getMovieData = async () => {
       const movie = await getMovie(id);
-      setMovieData(movie);
+      if (mounted) {
+        setMovieData(movie);
+      }
     };
     getMovieData();
+    return ()=> {mounted = false}
   }, [id]);
   const averageScore = averageRating(ratings);
   return (
-    <Card bg="dark" className="movieCard" data-testid = 'movieCard'>
+    <Card bg="dark" className="movieCard" data-testid="movieCard">
       <div className="imageWrapper">
         <div className="image">
-          <img className="cardImage" src={movieData?.poster_path} alt = {`${title} Poster`} />
+          <img
+            className="cardImage"
+            src={movieData?.poster_path}
+            alt={`${title} Poster`}
+          />
         </div>
       </div>
       <div className="bodyWrapper">
         <div className="body">
           <div className="title">
             <Link to={`/movies/${title.replace(/ /g, '-')}`}>
-              <Card.Title data-testid = {title}>{movieData?.title}</Card.Title>
+              <Card.Title data-testid={title}>{movieData?.title}</Card.Title>
             </Link>
           </div>
           <div className="averageRating">

@@ -10,9 +10,11 @@ import firebase from 'firebase/app';
 import {AuthContext} from '../../firebase/authProvider';
 import {auth} from '../../firebase/config';
 
+
 const mockCreate = jest.fn();
 const mockUpdateProfile = jest.fn();
 const mockSet = jest.fn();
+const mockPush = jest.fn();
 jest.mock('../../firebase/config', () => ({
   ...jest.requireActual('../../firebase/config'),
   db: {
@@ -23,6 +25,12 @@ jest.mock('../../firebase/config', () => ({
     }),
   },
 }));
+jest.mock('react-router-dom',()=>({
+  ...jest.requireActual('react-router-dom'),
+  useHistory:()=>({
+    push: mockPush
+  })
+}))
 
 const user = {
   uid: '123456',
@@ -72,6 +80,8 @@ describe('Sign Up Page', () => {
     renderComp(user);
     changeInputs(screen, 'test@test.com', 'Test', 'qazzaq', 'qazzaq');
     expect(screen.getByText('Already Signed In')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('Back'));
+    expect(screen.queryByText('Already Signed In')).not.toBeInTheDocument();
   });
   it('should return error if passwords do not match', () => {
     renderComp(null);
@@ -101,7 +111,6 @@ describe('Sign Up Page', () => {
     ).toBeInTheDocument();
   });
   it('should create the account', async () => {
-    
     renderComp(null);
     changeInputs(screen, 'a@a.com', 'Test', 'qazzaq', 'qazzaq');
     expect(auth.createUserWithEmailAndPassword).toHaveBeenCalledWith('a@a.com', 'qazzaq');
@@ -111,6 +120,9 @@ describe('Sign Up Page', () => {
     await waitFor(() =>
       expect(mockSet).toHaveBeenCalledWith({displayName: 'Test'})
     );
+    expect(screen.getByText('Success!')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', {name:'Continue to Home Page'}));
+    expect(mockPush).toHaveBeenCalledWith('/')
   });
   it('should not create the user if not returned', async () => {
     jest
@@ -121,6 +133,7 @@ describe('Sign Up Page', () => {
     expect(auth.createUserWithEmailAndPassword).toHaveBeenCalledWith('a@a.com', 'qazzaq');
     await waitFor(() => expect(mockUpdateProfile).not.toHaveBeenCalled());
     await waitFor(() => expect(mockSet).not.toHaveBeenCalled());
+    
   });
   it('should catch error on create email', async () => {
     jest

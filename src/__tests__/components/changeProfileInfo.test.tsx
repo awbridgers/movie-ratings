@@ -109,6 +109,9 @@ describe('ChangeProfileInfo', () => {
       expect(screen.getByText('Change Password')).toBeInTheDocument();
       expect(screen.getByLabelText('Current Password')).toBeInTheDocument();
       expect(screen.getByText('Submit')).toBeInTheDocument();
+      fireEvent.change(screen.getByLabelText('Current Password'),{target:{value: 'test'}})
+      expect(screen.getByLabelText('Current Password')).toHaveProperty('value', 'test')
+
     });
     it('should render email', () => {
       const newProps: Props = {...props, type: 'Email'};
@@ -116,6 +119,8 @@ describe('ChangeProfileInfo', () => {
       expect(screen.getByLabelText('Current Email:')).toBeInTheDocument();
       expect(screen.getByText('Change Email')).toBeInTheDocument();
       expect(screen.getByText('Submit')).toBeInTheDocument();
+      fireEvent.change(screen.getByLabelText('Current Password'),{target:{value: 'test'}})
+      expect(screen.getByLabelText('Current Password')).toHaveProperty('value', 'test')
     });
     it('should render name', () => {
       const newProps: Props = {...props, type: 'Name'};
@@ -123,6 +128,7 @@ describe('ChangeProfileInfo', () => {
       expect(screen.getByLabelText('Current Name:')).toBeInTheDocument();
       expect(screen.getByText('Submit')).toBeInTheDocument();
       expect(screen.getByText('Change Name')).toBeInTheDocument();
+      
     });
     it('should render delete', () => {
       const newProps: Props = {...props, type: 'Delete'};
@@ -136,6 +142,9 @@ describe('ChangeProfileInfo', () => {
       expect(
         screen.getByRole('button', {name: 'Delete Account'})
       ).toBeInTheDocument();
+      fireEvent.change(screen.getByLabelText('Current Password'),{target:{value: 'test'}})
+      expect(screen.getByLabelText('Current Password')).toHaveProperty('value', 'test')
+
     });
   });
   describe('Functionality', () => {
@@ -272,6 +281,14 @@ describe('ChangeProfileInfo', () => {
         expect(mockReAuth).not.toHaveBeenCalled();
         expect(mockUpdate).not.toHaveBeenCalled();
       })
+      it('should do nothing if user cred is not returned', async () => {
+        mockReAuth.mockResolvedValueOnce({user:null})
+        fireEvent.change(input, {target:{value:'DELETE'}});
+        fireEvent.click(submit);
+        await waitFor(()=>expect(mockUpdate).not.toHaveBeenCalled())
+
+      })
+      
       it('should catch error on reAuth', async () => {
         mockReAuth.mockRejectedValueOnce({message:'Error!'})
         fireEvent.change(input, {target:{value:'DELETE'}});

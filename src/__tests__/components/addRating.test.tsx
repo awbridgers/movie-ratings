@@ -104,7 +104,7 @@ describe('addRating component', () => {
       expect(screen.queryByLabelText('Rating:')).not.toBeInTheDocument();
     });
   });
-  describe.only('submit functionallity', () => {
+  describe('submit functionallity', () => {
     describe('edit/add rating', () => {
       beforeEach(() => {
         jest.resetAllMocks();
