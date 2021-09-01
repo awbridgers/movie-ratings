@@ -1,5 +1,4 @@
 ## Movie Ratings
----
 Movie Ratings is live [here](https://awbridgers.github.io/movie-ratings/#/)
 ### Basics
 * A simple web app to display basic movie information and their ratings.
