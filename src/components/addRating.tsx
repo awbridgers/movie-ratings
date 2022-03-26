@@ -42,7 +42,7 @@ const AddRating = ({title, back, userScore, deleteRating}: Props) => {
           //display success message
           setSuccess(true);
         })
-        .catch((e) => setError(e.message));
+        .catch((e:Error) => setError(e.message));
     } else {
       setError('Please enter a number between 0-10.');
     }
@@ -53,7 +53,7 @@ const AddRating = ({title, back, userScore, deleteRating}: Props) => {
     deletes[`users/${uid}/ratings/${title}`] = null;
     db.ref().update(deletes).then(()=>{
       setSuccess(true)
-    }).catch((e)=>console.log(e.message));
+    }).catch((e:Error)=>console.log(e.message));
   }
   if (success) {
     return (
@@ -101,6 +101,7 @@ const AddRating = ({title, back, userScore, deleteRating}: Props) => {
               <Col xs={5}>
                 <Form.Control
                   type="number"
+                  step = {0.1}
                   placeholder="0-10"
                   value={newRating}
                   onChange={(e) => setNewRating(e.target.value)}
